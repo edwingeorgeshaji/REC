@@ -1,86 +1,27 @@
-import { profile, experience } from '../content/profile.mjs';
+import { certificates } from './certificate.mjs';
+import { projectSlideshow } from './slideshow.mjs';
+import { profile,experience } from '../content/profile.mjs';
 import { projects } from '../content/projects.mjs';
-import { escape as e, external, layout } from './layout.mjs';
-import { icon } from './icons.mjs';
+import { layout,escape,external } from './layout.mjs';
+import { arrow } from './icons.mjs';
 import { projectVisual } from './visuals.mjs';
+import { discoverButton,logo,award,ambientSignal,previewImage } from './components.mjs';
 
-const label = (n, text) => `<p class="section-label"><span>${n}</span>${text}</p>`;
-const tags = (items) => `<ul class="tags">${items.map(t=>`<li>${e(t)}</li>`).join('')}</ul>`;
-
-function projectCard(p, i) {
-  return `<article class="project-card">
-    <a class="project-art art-${p.visual}" href="/projects/${p.slug}/" aria-label="Explore ${e(p.title)}">
-      <div class="art-topline"><span>${e(p.category)}</span><span>${String(i+1).padStart(2,'0')}</span></div>
-      ${p.image ? `<img src="${e(p.image)}" alt="${e(p.imageAlt || p.title)}" loading="lazy" width="620" height="380">` : projectVisual(p.visual)}
-      <div class="art-bottomline"><span>${p.image?'Project preview':'Concept illustration'}</span><span class="art-open">${icon('external')}</span></div>
-    </a>
-    <div class="project-meta"><span>${e(p.outcome)}</span>${p.year?`<span>${p.year}</span>`:''}</div>
-    <h3><a href="/projects/${p.slug}/">${e(p.title)} ${icon('external')}</a></h3>
-    <p class="project-summary">${e(p.summary)}</p>
-    ${tags(p.stack.slice(0,4))}
-  </article>`;
+export function projectCard(p,index=0,home=false){
+  return `<article class="project-card" data-reveal style="--stagger:${index%2}">${p.images?.length?projectSlideshow(p,false,home===true):`<a class="project-art" href="/projects/${p.slug}/" tabindex="-1" aria-hidden="true">${projectVisual(p.visual||'code')}<span class="art-caption">Project image coming soon</span></a>`}<div class="project-card-meta"><span>${escape(p.category)}</span><span>${p.year||''}</span></div><h3><a href="/projects/${p.slug}/">${escape(p.title)} ${arrow()}</a></h3><p>${escape(p.summary)}</p>${award(p.slug)||`<span class="project-status">${escape(p.status)}</span>`}</article>`;
 }
-
-export function homePage() {
-  const featured = projects.filter(p=>p.featured);
-  const archive = projects.filter(p=>!p.featured);
-  return layout({home:true,content:`
-    <section class="hero" aria-label="Introduction">
-      <div class="hero-visual"><img class="hero-image" src="/assets/blueberries.png" alt="" width="1672" height="941" fetchpriority="high" decoding="async"></div>
-      <div class="hero-shade"></div><div class="hero-blend"></div>
-      <h1 aria-label="Edwin George Shaji"><span class="name-line" aria-hidden="true"><span class="word-mask"><span class="hero-word" style="--word-order:0">Edwin</span></span></span> <span class="name-line" aria-hidden="true"><span class="word-mask"><span class="hero-word" style="--word-order:1">George</span></span> <span class="word-mask"><span class="hero-word" style="--word-order:2">Shaji</span></span></span></h1>
-    </section>
-
-    <section class="about section wrap" id="about" aria-labelledby="about-title">
-      ${label('01','A little about me')}
-      <div class="about-layout">
-        <div class="about-heading"><h2 id="about-title">Curiosity is<br>where it <em>starts.</em></h2><p class="location">${icon('globe')}${e(profile.location)}</p>
-        ${profile.portrait?`<img class="portrait" src="${e(profile.portrait)}" alt="Edwin George Shaji" width="420" height="480" loading="lazy">`:''}</div>
-        <div class="about-copy">${profile.about.map(p=>`<p>${e(p)}</p>`).join('')}
-          <a class="button button-outline" href="${profile.resume}" download>Download résumé ${icon('download')}</a>
-          <div class="about-facts"><span>Class of <strong>2028</strong></span><span>Speaking <strong>English & Malayalam</strong></span></div>
-        </div>
-      </div>
-      <div class="skills-grid">${profile.skills.map((group,i)=>`<div class="skill-group"><span class="skill-number">0${i+1}</span><h3>${e(group.name)}</h3>${tags(group.items)}</div>`).join('')}</div>
-      <p class="learning-note"><span class="small-orbit" aria-hidden="true"></span>Currently exploring PennyLane and continuing to build my quantum computing practice.</p>
-    </section>
-
-    <section class="section wrap projects-section" id="projects" aria-labelledby="projects-title">
-      ${label('02','Selected work')}
-      <div class="section-heading"><h2 id="projects-title">Ideas, put<br>into <em>practice.</em></h2><p>From quantum algorithms to everyday problems.<br>A selection of things I’ve helped bring to life.</p></div>
-      <div class="projects-grid">${featured.map(projectCard).join('')}</div>
-      <details class="project-archive"><summary><span>More experiments & projects <span class="count">${archive.length}</span></span><span class="summary-action">Explore the archive ${icon('plus')}</span></summary>
-        <div class="archive-list">${archive.map((p,i)=>`<a class="archive-row" href="/projects/${p.slug}/"><span class="archive-number">${String(i+5).padStart(2,'0')}</span><span><strong>${e(p.title)}</strong><span class="archive-description">${e(p.summary)}</span></span><span class="archive-category">${e(p.category)}</span>${icon('external')}</a>`).join('')}</div>
-      </details>
-    </section>
-
-    <section class="section wrap" id="experience" aria-labelledby="experience-title">
-      ${label('03','Experience & community')}
-      <div class="section-heading"><h2 id="experience-title">Learning by doing.<br>Growing <em>together.</em></h2><p>Practical experience, student communities,<br>and the people behind the work.</p></div>
-      <div class="experience-list">${experience.map((job,i)=>`<details class="experience-item" ${i===0?'open':''}><summary><span class="experience-kind">${e(job.kind)}</span><span class="experience-overview"><strong>${e(job.organisation)}</strong><span>${e(job.roles[0].title)}</span></span><span class="experience-date">${e(job.roles[0].date || 'Virtual Internship 6.0')}</span>${icon('plus')}</summary><div class="experience-body"><div class="role-history">${job.roles.map(r=>`<div><h4>${e(r.title)}</h4>${r.date?`<p>${e(r.date)}</p>`:''}</div>`).join('')}</div><div><p>${e(job.description)}</p>${job.highlights?`<ul class="event-list">${job.highlights.map(h=>`<li>${e(h)}</li>`).join('')}</ul>`:''}${tags(job.tags)}</div></div></details>`).join('')}</div>
-    </section>
-
-    <section class="section wrap education-section" id="education" aria-labelledby="education-title">
-      ${label('04','Education')}
-      <div class="education-layout"><h2 id="education-title">Building the<br><em>foundations.</em></h2><div class="education-list">${profile.education.map((ed,i)=>`<article class="education-item"><p class="eyebrow">${e(ed.date)}</p><h3>${e(ed.title)}</h3><p>${e(ed.school)}</p>${ed.highlight?`<div class="grade"><strong>${e(ed.highlight)}</strong><span>${e(ed.note)}</span></div>`:`<p class="school-detail">${e(ed.detail)}</p>`}</article>`).join('')}<div class="honours">${icon('certificate')}<span>Director’s Honours List <span>Semester 1</span></span></div></div></div>
-    </section>
-
-    <section class="section wrap" id="certifications" aria-labelledby="certifications-title">
-      ${label('05','Continued learning')}
-      <div class="section-heading"><h2 id="certifications-title">Always a <em>student.</em></h2><p>Learning beyond the classroom,<br>one new perspective at a time.</p></div>
-      <div class="certificates-grid">${profile.certificates.filter(c=>c.published).map(c=>`<article class="certificate">${icon('certificate')}<p class="eyebrow">${e(c.type)}</p><h3>${e(c.title)}</h3>${c.issuer?`<p>${e(c.issuer)}</p>`:''}${c.url?external(c.url,'View credential'):''}</article>`).join('')}</div>
-    </section>
-
-    <section class="section wrap contact-section" id="contact" aria-labelledby="contact-title">
-      ${label('06','Get in touch')}
-      <div class="contact-layout"><div class="contact-copy"><h2 id="contact-title">Good things begin<br>with a <em>hello.</em></h2><p>Have a project in mind, an interesting opportunity,<br>or a question? I’d love to hear from you.</p><a class="email-link" href="mailto:${profile.email}">${profile.email}${icon('external')}</a><div class="social-links">${external(profile.github,'GitHub')}${external(profile.linkedin,'LinkedIn')}${external(profile.gravatar,'Gravatar')}</div></div>
-      <form class="contact-form" action="https://formsubmit.co/${profile.email}" method="POST">
-        <input type="hidden" name="_subject" value="Portfolio · A new message for Edwin"><input type="hidden" name="_template" value="table"><input type="hidden" name="_next" value="${profile.siteUrl}/thanks/">
-        <div class="form-trap" aria-hidden="true"><label>Leave this field empty<input name="_honey" tabindex="-1" autocomplete="off"></label></div>
-        <div class="form-row"><div class="field"><label for="contact-name">Your name</label><input id="contact-name" name="name" placeholder="Alex Morgan" autocomplete="name" required maxlength="100"></div><div class="field"><label for="contact-email">Email address</label><input id="contact-email" name="email" type="email" placeholder="alex@example.com" autocomplete="email" required maxlength="254"></div></div>
-        <div class="field"><label for="contact-subject">What’s on your mind?</label><select id="contact-subject" name="topic"><option>A conversation</option><option>An internship opportunity</option><option>A part-time opportunity</option><option>A freelance project</option><option>A collaboration</option></select></div>
-        <div class="field"><label for="contact-message">Your message</label><textarea id="contact-message" name="message" rows="4" placeholder="Tell me a little about it…" required minlength="10" maxlength="5000"></textarea></div>
-        <div class="form-footer"><p>Sent securely via FormSubmit.</p><button class="button button-solid" type="submit">Send message ${icon('arrow')}</button></div>
-      </form></div>
-    </section>`});
+export function skillConstellation(){
+  const nodes=[['Python','python',18,25],['Java','java',43,12],['JavaScript','javascript',72,21],['Node.js','nodejs',83,45],['Firebase','firebase',77,70],['Qiskit','qiskit',56,87],['PennyLane','pennylane',28,80],['Git','git',13,58],['Linux','linux',40,59]];
+  return `<div class="skills-stage" data-skills aria-label="Programming and tools"><svg viewBox="0 0 800 440" class="skill-orbits" fill="none" aria-hidden="true"><ellipse cx="400" cy="220" rx="315" ry="135" transform="rotate(-18 400 220)"/><ellipse cx="400" cy="220" rx="298" ry="125" transform="rotate(23 400 220)"/><ellipse cx="400" cy="220" rx="260" ry="175"/><path class="skill-orbit-highlight" pathLength="1" d="M85 220a315 135 0 1 1 630 0a315 135 0 1 1-630 0"/><path class="skill-orbit-highlight second" pathLength="1" d="M100 220C140 20 640 20 700 220S140 420 100 220"/><path class="skill-orbit-highlight third" pathLength="1" d="M140 220a260 175 0 1 1 520 0a260 175 0 1 1-520 0"/></svg>${nodes.map(([name,id,x,y])=>`<span class="skill-node" style="--x:${x}%;--y:${y}%">${logo(id)}<span>${name}</span></span>`).join('')}</div>`;
 }
+function skills(){return `<div class="skills-layout" data-reveal><div class="skills-copy"><p class="eyebrow">My toolkit</p><h2>Ideas meet<br> possibility.</h2>${discoverButton('/toolkit/','Explore my toolkit')}</div>${skillConstellation()}</div>`;}
+export function rolePreview(r,i){return `<a class="role-preview" href="/experience/#${r.anchor}" data-reveal><span><h3>${escape(r.organisation)}</h3><p>${escape(r.roles[0].title)}</p></span><span class="role-preview-date">${r.roles[0].date||'Virtual Internship 6.0'}</span>${arrow()}</a>`;}
+export function certificateGallery(){return `<section class="certifications-section section" id="certifications" aria-labelledby="certifications-title"><div class="wrap section-heading" data-reveal><div><p class="eyebrow">Certifications</p><h2 id="certifications-title">A little further,<br> every day.</h2></div></div><div class="marquee" data-marquee tabindex="0" role="region" aria-label="Certificate image previews. Drag or use the arrow buttons."><div class="marquee-track">${[0,1,2].map(copy=>`<div class="marquee-set" ${copy?'aria-hidden="true"':''}>${certificates.filter(c=>!c.portrait).map((c,i)=>`<a href="/certificates/#${c.slug}" ${copy?'tabindex="-1"':''} draggable="false"><img src="${escape(c.preview)}" alt="${copy?'':escape(c.title)+(c.image?'':' - placeholder, certificate file pending')}" width="600" height="400" draggable="false" loading="eager"></a>`).join('')}</div>`).join('')}</div></div><div class="gallery-controls wrap"><button type="button" class="circle-control" data-marquee-prev aria-label="Previous certificate">${arrow('right')}</button><button type="button" class="marquee-pause" data-marquee-pause aria-label="Pause certificate animation">Pause</button><button type="button" class="circle-control" data-marquee-next aria-label="Next certificate">${arrow('right')}</button></div><div class="section-action wrap" data-reveal>${discoverButton('/certificates/','View all certificates')}</div></section>`;}
+export function homePage(){return layout({home:true,content:`
+<section class="hero" id="home" aria-labelledby="hero-title"><img class="hero-image" src="/assets/lilies.webp" width="1672" height="941" alt="" fetchpriority="high"><div class="hero-shade"></div><div class="hero-title"><h1 id="hero-title">Edwin George Shaji</h1></div></section>
+<section class="about-section wrap section" id="about" aria-labelledby="about-title"><div class="intro-layout"><div class="intro-copy" data-reveal><p class="eyebrow">A little about me</p><h2 id="about-title">Hello, I’m Edwin.</h2><p>I’m a Computer Science and Engineering student at Amal Jyothi College of Engineering. My interests meet at software development, artificial intelligence, and quantum computing - from building research tools to exploring quantum optimisation.</p><p>I’ve been curious about technology since childhood. Today, I turn that curiosity into projects, learn alongside others, and help bring student communities together.</p><div class="intro-note">Calicut, Keralam, India</div>${ambientSignal()}<div class="intro-links">${discoverButton('/about/','A little more about me')}</div></div><figure class="portrait-wrap" data-reveal><div class="portrait" data-portrait><img src="/assets/edwin-home-920.webp" srcset="/assets/edwin-home-480.webp 480w, /assets/edwin-home-920.webp 920w" sizes="(max-width: 600px) 80vw, (max-width: 800px) 40vw, 375px" alt="Edwin George Shaji smiling in front of a brick wall" width="920" height="1635" loading="eager" decoding="sync"><span class="portrait-sheen" aria-hidden="true"></span></div></figure></div>${skills()}</section>
+<section class="projects-section wrap section" id="projects" aria-labelledby="projects-title"><div class="section-heading" data-reveal><div><p class="eyebrow">Selected work</p><h2 id="projects-title">A few things<br> I’ve helped build.</h2></div></div><div class="project-grid">${projects.filter(p=>p.featured).slice(0,2).map((p,i)=>projectCard(p,i,true)).join('')}</div><div class="section-action" data-reveal>${discoverButton('/projects/','View all projects')}</div></section>
+<section class="experience-section section" id="experience" aria-labelledby="experience-title"><div class="wrap"><div class="section-heading" data-reveal><div><p class="eyebrow">Experience</p><h2 id="experience-title">Learning by doing.</h2></div></div><div class="selected-roles">${experience.slice(0,3).map(rolePreview).join('')}</div><div class="section-action" data-reveal>${discoverButton('/experience/','View all experience')}</div></div></section>
+<section class="learning-section wrap section" id="learning" aria-labelledby="learning-title"><div data-reveal><p class="eyebrow">Education</p><h2 id="learning-title">The foundations.</h2></div><div class="education-compact" data-reveal><a href="https://www.ajce.in" target="_blank" rel="noopener noreferrer"><span><h3>Amal Jyothi College of Engineering</h3><p>B.Tech · Computer Science & Engineering</p></span><span>Sep 2024 - May 2028<br><small>Expected graduation</small></span>${arrow()}</a><a href="https://www.sjbhss.ac.in" target="_blank" rel="noopener noreferrer"><span><h3>St. Joseph’s Boys’ Higher Secondary School</h3><p>Kozhikode</p></span><span>SSLC · 2022<br>Higher Secondary · 2024</span>${arrow()}</a></div></section>
+${certificateGallery()}${contact()}`});}
+export function contact(){return `<section class="contact-section section" id="contact" aria-labelledby="contact-title"><div class="wrap" data-reveal><p class="eyebrow">Get in touch</p><h2 id="contact-title">Good things start<br> with a hello.</h2><div class="contact-email"><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=${escape(profile.email)}">${profile.email}${arrow()}</a><button type="button" class="copy-email" data-copy="${profile.email}" hidden><span class="copy-idle">Copy email</span><span class="copy-done" aria-hidden="true">Copied <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4 10-10"/></svg></span></button><span role="status" class="sr-only" data-copy-status></span></div><div class="social-links">${external(profile.linkedin,'LinkedIn')}${external(profile.github,'GitHub')}${external('https://leetcode.com/u/edwingeorgeshaji','LeetCode')}${external('https://gravatar.com/edwingeorgeshaji','Gravatar')}<a class="text-link" href="${profile.resume}">Résumé ${arrow()}</a></div></div></section>`;}

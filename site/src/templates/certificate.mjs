@@ -1,0 +1,7 @@
+import { profile } from '../content/profile.mjs';
+import { escape } from './layout.mjs';
+// Editorial priority, not a universal ranking of issuers. Keep related credentials adjacent.
+export const certificateGroups=['awards','nptel','honours','internships','ibm','aws','infosys','oracle','google','kaggle','anthropic','intel','dubai','hackerrank','nasa','other'];
+const groupRank=c=>{const rank=certificateGroups.indexOf(c.group);return rank<0?certificateGroups.length:rank;};
+export const certificates=profile.certificates.map((c,i)=>({...c,portrait:Number(c.height)>Number(c.width),slug:c.slug||c.title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),preview:c.image||`/assets/placeholders/certificate-${i}.svg`})).filter(c=>c.published).sort((a,b)=>groupRank(a)-groupRank(b)||(a.priority??100)-(b.priority??100));
+export function certificateCard(c){return `<article class="project-card"><div class="project-slideshow project-preview"><img class="certificate-preview${c.portrait?' is-portrait':''}" src="${escape(c.preview)}" width="${c.width||600}" height="${c.height||400}" loading="lazy" decoding="async" alt="${escape(c.title)}${c.image?'':' - placeholder preview'}"></div><div class="project-card-meta"><span>${escape(c.type)}</span><span>${escape(c.date||'')}</span></div><h3>${escape(c.title)}</h3><p>${escape(c.description||'Certificate details will be added with the original document.')}</p>${!c.image?'<span class="project-status">Placeholder preview</span>':''}</article>`;}

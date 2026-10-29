@@ -1,45 +1,16 @@
+import { signature } from './signature.mjs';
 import { profile } from '../content/profile.mjs';
-import { icon } from './icons.mjs';
-
-export const escape = (value = '') => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
-export const external = (url, label, className = 'text-link') => `<a class="${className}" href="${escape(url)}" target="_blank" rel="noopener noreferrer">${escape(label)}${icon('external')}<span class="sr-only"> (opens in a new tab)</span></a>`;
-
-const links = [['about','About'],['projects','Projects'],['experience','Experience'],['education','Education'],['certifications','Certificates'],['contact','Contact']];
-
-export function layout({ title = profile.name, description = profile.description, path = '/', content, home = false, noindex = false }) {
-  const url = `${profile.siteUrl}${path}`;
-  const schema = JSON.stringify({ '@context': 'https://schema.org', '@type': 'Person', name: profile.name, url: profile.siteUrl, sameAs: [profile.github, profile.linkedin], knowsLanguage: profile.languages, affiliation: { '@type': 'CollegeOrUniversity', name: 'Amal Jyothi College of Engineering' } }).replace(/</g, '\\u003c');
-  return `<!doctype html>
-<html lang="en" data-theme="dark">
-<head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${escape(title === profile.name ? `${profile.name} — Software, AI & Quantum` : `${title} — ${profile.name}`)}</title>
-  <meta name="description" content="${escape(description)}"><meta name="theme-color" content="#0c1724">
-  ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${escape(url)}">`}
-  <meta property="og:type" content="website"><meta property="og:title" content="${escape(title)}">
-  <meta property="og:description" content="${escape(description)}"><meta property="og:url" content="${escape(url)}">
-  <meta property="og:image" content="${profile.siteUrl}/assets/blueberries.png"><meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/fonts/fonts.css"><link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/motion.css">
-  ${profile.heroFont ? `<style>@font-face{font-family:Parceh;src:url('${escape(profile.heroFont)}');font-style:normal;font-weight:400;font-display:swap}</style><link rel="preload" href="${escape(profile.heroFont)}" as="font" crossorigin>` : ''}
-  ${home ? '<link rel="preload" href="/assets/blueberries.png" as="image" fetchpriority="high">' : ''}
-  <script>try{const t=localStorage.getItem('edwin-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch{}document.querySelector('meta[name="theme-color"]').content=document.documentElement.dataset.theme==='light'?'#e6edf3':'#0c1724';</script>
-  <script type="application/ld+json">${schema}</script>
-  <script src="/app.js" type="module"></script>
-</head>
-<body class="${home ? 'home-page' : 'inner-page'}">
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header" data-header>
-    <nav class="navigation" aria-label="Main navigation">
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navigation-links">Explore ${icon('menu')}</button>
-      <div class="navigation-links" id="navigation-links"><span class="nav-indicator" aria-hidden="true"></span>${links.map(([id,label])=>`<a href="${home?'':'/'}#${id}" data-section="${id}">${label}</a>`).join('')}</div>
-    </nav>
-  </header>
-  <button class="theme-toggle" type="button" aria-label="Switch to light theme" title="Switch to light theme" data-theme-toggle>${icon('sun','sun-icon')}${icon('moon','moon-icon')}</button>
-  <main id="main">${content}</main>
-  <footer class="footer wrap">
-    <a class="footer-name" href="/">Edwin George Shaji<span>A little curiosity. A lot to build.</span></a>
-    <div class="footer-bottom"><span>© ${new Date().getUTCFullYear()} Edwin George Shaji</span><a href="${home?'#main':'/'}">${home?'Back to top':'Back to home'} ${icon('arrow')}</a><span>Made with care, in Calicut.</span></div>
-  </footer>
-</body></html>`;
+export const escape=(value='')=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+import { arrow } from './icons.mjs';
+export const external=(url,label,className='text-link')=>`<a class="${className}" href="${escape(url)}" target="_blank" rel="noopener noreferrer">${escape(label)} ${arrow()}<span class="sr-only"> (opens in a new tab)</span></a>`;
+const themeToggle=(className)=>`<button class="theme-toggle ${className}" type="button" aria-label="Switch to light theme" data-theme-toggle><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5Z"/></svg></button>`;
+const sections=[['home','Home'],['about','About'],['projects','Projects'],['experience','Experience'],['learning','Education'],['certifications','Certificates'],['contact','Contact']];
+export function layout({title=profile.name,description=profile.description,path='/',content,home=false,noindex=false}){
+ const pageTitle=title===profile.name?profile.name:`${title} - ${profile.name}`;
+ const schema=JSON.stringify({'@context':'https://schema.org','@type':'Person',name:profile.name,url:profile.siteUrl,sameAs:[profile.github,profile.linkedin],knowsLanguage:profile.languages}).replace(/</g,'\\u003c');
+ return `<!doctype html><html lang="en" data-theme="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escape(pageTitle)}</title><meta name="description" content="${escape(description)}"><meta name="theme-color" content="#101d17">${noindex?'<meta name="robots" content="noindex">':`<link rel="canonical" href="${profile.siteUrl}${path}">`}<meta property="og:title" content="${escape(pageTitle)}"><meta property="og:description" content="${escape(description)}"><meta property="og:type" content="website"><meta property="og:image" content="${profile.siteUrl}/assets/lilies.webp"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="preload" href="/type/dm-sans.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/type/Parceh.otf" as="font" type="font/otf" crossorigin>${home?'<link rel="preload" href="/type/Jalvair.otf" as="font" type="font/otf" crossorigin><link rel="preload" href="/assets/lilies.webp" as="image" fetchpriority="high">':''}
+ ${path==='/about/'?'<link rel="preload" href="/assets/edwin-portrait.webp" as="image" fetchpriority="high">':''}
+ <script>try{const t=sessionStorage.getItem('edwin-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch{}document.querySelector('meta[name="theme-color"]').content=document.documentElement.dataset.theme==='light'?'#e7eddf':'#101d17';${home?"document.documentElement.classList.add('booting');setTimeout(()=>document.documentElement.classList.remove('booting'),1800);":''}</script><link rel="stylesheet" href="/styles.css"><script src="/app.js" type="module" ${['/experience/','/projects/','/certificates/'].includes(path)?'blocking="render"':''}></script><script type="application/ld+json">${schema}</script></head><body class="${home?'home-page':'inner-page'}"><a href="#main" class="skip-link">Skip to content</a>
+ ${home?`<header class="site-header over-hero" data-header>${themeToggle('hero-control')}<nav class="navigation" aria-label="Main navigation"><span class="nav-indicator" aria-hidden="true"></span>${sections.map(([id,label])=>`<a href="#${id}" data-nav="${id}">${label}</a>`).join('')}</nav><a class="header-resume hero-control" href="${profile.resume}">Résumé ${arrow()}</a></header>`:themeToggle('subpage-theme-toggle')}
+ <main id="main" tabindex="-1">${content}</main>${home?'<footer class="site-footer wrap"><p>Crafted with love by,</p><a class="footer-name" href="#home" aria-label="Edwin George Shaji - back to top">'+signature+'</a></footer>':''}</body></html>`;
 }
