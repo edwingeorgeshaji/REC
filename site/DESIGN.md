@@ -521,7 +521,7 @@ For content updates, verify the changed card, gallery/PDF, real asset dimensions
 - Certificate cards have no links/buttons. Marquee clicks land at the right collection anchor, dragging does not navigate, pause works, duplicates are not focusable, and `/certificates/<name>/` returns 404.
 - Header resume/theme controls do not flash when returning from a subpage to a non-hero scroll position. Theme restoration includes cached pages.
 - Copy email is readable in light/dark, smaller than the mobile email address, and announces success/failure.
-- Preserve About photo alignment, toolkit complementary motion/mobile layout, company logo theme variants, signature writing/replay, clean home navigation and resume inline opening.
+- Preserve About photo alignment, toolkit complementary motion/mobile layout, company logo theme variants, signature writing/replay, clean home navigation and resume inline opening. At widths up to 600px, left-align the Explore my toolkit CTA on About and show only the resume label in the hero header (hide its arrow).
 
 ## Regression guardrails and future documentation changes
 
