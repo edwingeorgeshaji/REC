@@ -56,6 +56,8 @@ Deploy the contents of `site/dist/` to a static host. For Git-based hosting, set
 
 ## 🎨 Colour codes
 
+<div align=center>
+
 | Colour | Dark theme | Light theme |
 | --- | --- | --- |
 | Background | ![#101d17](https://placehold.co/15/101d17/101d17.png) `#101d17` | ![#e7eddf](https://placehold.co/15/e7eddf/e7eddf.png) `#e7eddf` |
@@ -64,5 +66,7 @@ Deploy the contents of `site/dist/` to a static host. For Git-based hosting, set
 | Muted text | ![#a3b3a6](https://placehold.co/15/a3b3a6/a3b3a6.png) `#a3b3a6` | ![#586f5d](https://placehold.co/15/586f5d/586f5d.png) `#586f5d` |
 | Accent | ![#dfb7c5](https://placehold.co/15/dfb7c5/dfb7c5.png) `#dfb7c5` | ![#824b61](https://placehold.co/15/824b61/824b61.png) `#824b61` |
 | Borders | ![#354b3c](https://placehold.co/15/354b3c/354b3c.png) `#354b3c` | ![#b6c8af](https://placehold.co/15/b6c8af/b6c8af.png) `#b6c8af` |
+
+</div>
 
 For content editing and design guidance, see [site/README.md](site/README.md) and [site/DESIGN.md](site/DESIGN.md).
