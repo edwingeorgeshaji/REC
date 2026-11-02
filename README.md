@@ -1,7 +1,7 @@
 <p align="center">
   <img src="site/public/favicon.svg" width="48" height="48" alt="Edwin George Shaji logo" />
 </p>
-<h1 align="center">Edwin George Shaji — Portfolio</h1>
+<h1 align="center">Edwin George Shaji - Portfolio</h1>
 <p align="center">
   My personal portfolio, built with HTML, CSS, vanilla JavaScript, and a Node.js static site generator.
   A home for my projects, experience, and explorations in software, AI, and quantum computing.
