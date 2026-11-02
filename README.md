@@ -9,6 +9,7 @@
 <p align="center">
   ♪ <a href="https://edwingeorgeshaji.com">Visit the website</a> ♪
 </p>
+
 <p align="center">
   <img src="site/docs/hero-preview.png" width="100%" alt="Edwin George Shaji's portfolio hero featuring pink lilies and handwritten lettering" />
 </p>
