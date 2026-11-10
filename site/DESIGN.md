@@ -553,4 +553,4 @@ New navigation buttons use the shared animated discoverButton component. Compact
 
 ### 404 meadow story
 
-A continuous 20-second accent-colour meadow with two striped bees at 0.78 scale, fluttering wings, opening flowers and swaying grass. No rabbit and no flight trails. Keep only the left cloud, partially concealing a small sun with alternating long/short single-stroke rays. On mobile up to 600px, center the illustration above all 404 content. Desktop keeps it to the right. Pause offscreen/in hidden tabs; reduced motion shows a still scene. Source: src/error-story.js.
+A continuous 20-second accent-colour meadow with one larger striped bee at full scale, fluttering wings, opening flowers and swaying grass. No rabbit and no flight trails. Keep only the left cloud, partially concealing a small sun with alternating long/short single-stroke rays. On mobile up to 600px, center the illustration below all 404 content and actions. The Refresh button is white (#ffffff) with dark text (#101d17) in both themes. Desktop keeps it to the right. Pause offscreen/in hidden tabs; reduced motion shows a still scene. Source: src/error-story.js.

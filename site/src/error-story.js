@@ -1,5 +1,5 @@
 // A continuous 20-second meadow story, drawn entirely with persistent SVG strokes.
-// Two bees visit a flowering meadow under a drifting cloud and a peeking sun.
+// One bee visits a flowering meadow under a drifting cloud and a peeking sun.
 const TAU=Math.PI*2;
 const smooth=t=>{t=Math.max(0,Math.min(1,t));return t*t*(3-2*t);};
 const windowPulse=(t,a,b,c,d)=>smooth((t-a)/(b-a))*(1-smooth((t-c)/(d-c)));
@@ -34,10 +34,10 @@ function meadow(t){
   for(let j=0;j<6;j++){const a=j/6*TAU+Math.sin(TAU*t+i)*.08,dist=(5+10*bloom)*scale;add(ellipse(cx+Math.cos(a)*dist,cy+Math.sin(a)*dist,(5+9*bloom)*scale,(2+4*bloom)*scale,a));}
   add(ellipse(cx,cy,6*scale,6*scale));
  });
- // Two small bees have separate heads, thoraxes, striped abdomens, antennae and legs.
- for(let i=0;i<2;i++){
+ // The bee has separate heads, thoraxes, striped abdomens, antennae and legs.
+ for(let i=0;i<1;i++){
   const phase=(t+i*.43)%1,[bx,by]=flight(phase),wing=.3+.7*Math.pow(Math.sin(TAU*t*90+i*1.3),2);
-  const bee=`translate(${bx} ${by+i*9}) rotate(${Math.sin(TAU*phase*4)*18}) scale(.78)`;
+  const bee=`translate(${bx} ${by+i*9}) rotate(${Math.sin(TAU*phase*4)*18}) scale(1)`;
   add(ellipse(-6,1,9,5.5),bee);add(ellipse(3,0,4.3,4.5),bee);add(ellipse(9,-1,3.5,3.5),bee);
   add('M-11 -3 Q-13 1 -11 5 M-6 -4 Q-8 1 -6 6 M-1 -3 Q-3 1 -1 5',bee);
   add(ellipse(0,-7,6,7*wing,-.7),bee);add(ellipse(4,-7,5,7*wing,.5),bee);
