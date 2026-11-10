@@ -95,9 +95,9 @@ h2{font:clamp(40px,4.5vw,67px)/1.16 var(--serif);letter-spacing:-.02em}.arrow{wi
 .next-project>span:nth-child(2){font:35px/1.5 var(--serif);text-align:center;overflow-wrap:anywhere}
 .next-project>.arrow{justify-self:end}
 .next-project:hover{color:var(--accent)}
-.not-found{min-height:75vh;padding-block:180px 80px}
-.not-found h1{font:65px/1.35 var(--serif);margin-block:30px}
-.not-found .button{margin-top:25px}
+.not-found{min-height:75vh;padding-block:clamp(100px,15vw,180px) 80px}
+.not-found h1{font:clamp(36px,6vw,65px)/1.25 var(--serif);margin-block:30px}
+.not-found>p:not(.eyebrow){max-width:680px;margin-top:14px}.not-found-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}.not-found-actions .button{justify-content:center;padding:12px 18px;max-width:100%}
 
 /* Motion and responsive fallbacks also keep content usable without JavaScript. */
 .marquee{overflow-x:auto;scroll-behavior:auto}

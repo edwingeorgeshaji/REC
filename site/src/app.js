@@ -107,3 +107,6 @@ if(copy&&navigator.clipboard?.writeText){
 initSlideshows();
 
 initProjectBrowser();
+
+const refreshPage=document.querySelector('[data-refresh-page]');
+if(refreshPage){refreshPage.hidden=false;refreshPage.addEventListener('click',()=>location.reload());}

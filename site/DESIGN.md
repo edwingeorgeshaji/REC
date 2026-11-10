@@ -542,3 +542,7 @@ Do not restore project autoplay, project pause buttons, separate detail image ti
 The old certificate detail design (team above images, source platform labels, adaptive landscape/portrait frames and PDF button) is intentionally retired, not an implementation TODO. Remaining legacy fields/CSS do not authorize bringing it back. Project teammate and report behavior remains active.
 
 After each future change, edit the relevant current section here, update examples/checklists when behavior changes, and note any browser limitations accurately. Do not append conflicting “latest revision” sections indefinitely or paste full dated source snapshots into this file. Preserve the actual code/assets as the implementation reference. When a future request conflicts with this contract, apply the owner's explicit request and reconcile this document in the same change.
+
+## Page not found
+
+The 404 heading reads “I think we have a problem here...”. Explain that the address may be incorrect or the page moved, then ask whether Wi-Fi/mobile data has an active **internet** connection. Provide Refresh (reload the current URL) and a link to https://edwingeorgeshaji.com/. Keep the layout responsive and the page noindex. This page cannot replace the browser’s own network-error screen.

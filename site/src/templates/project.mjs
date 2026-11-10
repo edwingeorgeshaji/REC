@@ -21,5 +21,5 @@ export function projectPage(project) {
 }
 
 export function notFoundPage() {
-  return layout({title:'Page not found',path:'/404.html',noindex:true,content:`<section class="not-found wrap"><p class="eyebrow accent">404 / A missing page</p><h1>This page hasn’t<br>been written.</h1><p>The page may have moved. You can return to the portfolio below.</p><a class="button" href="/">Back to the portfolio ${arrow('right')}</a></section>`});
+  return layout({title:'Page not found',path:'/404.html',noindex:true,content:`<section class="not-found wrap"><p class="eyebrow accent">404 / Page not found</p><h1>I think we have<br>a problem here...</h1><p>This page could not be found. The address may be incorrect or the page may have moved.</p><p>Are you sure your Wi-Fi or mobile data has an active <strong>internet</strong> connection?</p><p>Try refreshing, or visit the homepage to find your way back.</p><div class="not-found-actions"><button type="button" class="button" data-refresh-page hidden>Refresh</button><a class="button" href="https://edwingeorgeshaji.com/">Visit edwingeorgeshaji.com ${arrow('right')}</a></div></section>`});
 }
