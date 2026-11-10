@@ -1,61 +1,67 @@
-// Twelve persistent strokes form a bird, a butterfly, and a blooming flower.
-// Each scene keeps stroke identities so the loop morphs without cuts or fades.
-export const storyScenes = [
- [
- 'M106 158 C88 112 118 82 149 103 C180 118 168 160 143 180 C125 196 97 180 106 158',
- 'M118 150 C91 161 76 173 54 178 C71 186 93 183 110 173',
- 'M114 143 C130 123 155 131 155 150 C151 169 128 174 114 157',
- 'M153 111 C166 107 173 107 184 115 C173 118 168 120 161 121',
- 'M148 114 C147 110 153 110 153 114 C153 118 147 118 148 114',
- 'M122 183 C120 191 120 196 116 201 C112 202 110 202 107 202',
- 'M136 184 C136 193 136 198 132 202 C128 202 126 202 122 202',
- 'M48 207 C104 199 176 204 230 188',
- 'M181 199 C179 182 190 173 208 172 C205 188 195 196 181 199',
- 'M190 192 C195 185 201 180 208 172',
- 'M204 100 C212 93 220 94 225 88',
- 'M214 119 C225 112 235 116 243 108'
- ],
- [
- 'M146 126 C139 111 140 100 146 100 C152 100 153 111 146 126 C141 146 141 161 146 177 C151 160 151 143 146 126',
- 'M140 125 C117 84 70 65 66 100 C64 129 105 146 140 145',
- 'M152 125 C175 84 222 65 226 100 C228 129 187 146 152 145',
- 'M139 147 C101 137 78 162 92 187 C106 211 132 184 143 161',
- 'M153 147 C191 137 214 162 200 187 C186 211 160 184 149 161',
- 'M143 103 C138 88 129 85 126 77',
- 'M149 103 C154 88 163 85 166 77',
- 'M132 134 C108 111 88 102 80 99',
- 'M160 134 C184 111 204 102 212 99',
- 'M130 158 C116 162 108 174 103 181',
- 'M162 158 C176 162 184 174 189 181',
- 'M105 225 C124 212 168 239 190 220'
- ],
- [
- 'M132 122 C132 105 158 105 158 122 C158 140 132 140 132 122',
- 'M137 108 C115 72 140 57 151 76 C157 88 151 99 150 108',
- 'M156 111 C174 78 199 88 193 106 C189 120 171 122 159 119',
- 'M160 128 C199 121 204 149 184 153 C170 154 157 143 153 137',
- 'M147 140 C164 170 141 190 130 170 C124 157 133 146 137 138',
- 'M131 135 C101 159 82 137 99 122 C108 115 121 120 131 122',
- 'M132 113 C101 109 100 83 119 86 C131 89 135 98 137 108',
- 'M146 177 C146 199 139 220 145 244',
- 'M143 222 C120 221 104 205 106 192 C126 194 141 205 143 222',
- 'M145 207 C164 208 185 187 184 177 C162 181 149 190 145 207',
- 'M106 192 C122 206 131 211 143 222',
- 'M145 207 C159 195 170 185 184 177'
- ]
-];
-export function errorStoryMarkup(){return `<div class="error-story" aria-hidden="true"><svg viewBox="0 0 292 292" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" data-error-story>${storyScenes[0].map(d=>`<path d="${d}"/>`).join('')}</svg></div>`;}
+// A continuous 20-second meadow story, drawn entirely with persistent SVG strokes.
+// The rabbit explores, flowers open for the visiting bee, then everyone returns home.
+const TAU=Math.PI*2;
+const smooth=t=>{t=Math.max(0,Math.min(1,t));return t*t*(3-2*t);};
+const windowPulse=(t,a,b,c,d)=>smooth((t-a)/(b-a))*(1-smooth((t-c)/(d-c)));
+const line=(points,close=false)=>'M'+points.map(p=>p.map(n=>n.toFixed(2)).join(',')).join(' L')+(close?' Z':'');
+function ellipse(cx,cy,rx,ry,angle=0){return line(Array.from({length:33},(_,i)=>{const a=i/32*TAU,x=Math.cos(a)*rx,y=Math.sin(a)*ry;return [cx+x*Math.cos(angle)-y*Math.sin(angle),cy+x*Math.sin(angle)+y*Math.cos(angle)];}));}
+function flight(t){
+ // A closed Catmull-Rom route: arrive, sip at three flowers, circle the rabbit, return.
+ const stops=[[340,75],[305,62],[269,110],[266,111],[303,147],[304,146],[226,153],[225,153],[170,105],[126,84],[191,44],[286,47]];
+ const u=t*stops.length,i=Math.floor(u),f=u-i,p=k=>stops[(k+stops.length)%stops.length];
+ const a=p(i-1),b=p(i),c=p(i+1),d=p(i+2);
+ return [0,1].map(k=>.5*((2*b[k])+(-a[k]+c[k])*f+(2*a[k]-5*b[k]+4*c[k]-d[k])*f*f+(-a[k]+3*b[k]-3*c[k]+d[k])*f*f*f));
+}
+function meadow(t){
+ const strokes=[];const add=(d,transform='')=>strokes.push({d,transform});const wave=Math.sin(TAU*t);
+ add('M25 258 C95 248 140 259 195 253 C258 245 310 258 375 248');
+ add('M55 273 C114 268 152 273 184 268');add('M257 270 Q311 263 350 268');
+ // Bending grass shares the breeze with the flower stems.
+ for(let i=0;i<11;i++){const x=34+i*32,y=254+Math.sin(i*2)*3,w=Math.sin(TAU*t*3+i)*4;add(`M${x-5} ${y} Q${x-11+w} ${y-15} ${x-8+w} ${y-23} M${x} ${y} Q${x+1+w} ${y-19} ${x+8+w} ${y-29} M${x+5} ${y} Q${x+13+w} ${y-12} ${x+16+w} ${y-13}`);}
+ // A small cloud stretches gently; it never cuts between poses.
+ add(`M${43+wave*5} 65 c-9 -1 -11 -14 1 -17 c1 -18 28 -23 36 -8 c17 -7 28 11 17 21 c-11 6 -37 4 -54 4`);
+ const flowers=[[268,139,1],[306,174,.78],[225,180,.7]];
+ flowers.forEach(([x,y,scale],i)=>{
+  const bloom=.3+.7*windowPulse(t,.05+i*.07,.16+i*.07,.69+i*.035,.94+i*.015),sway=Math.sin(TAU*t*3+i)*3;
+  const cx=x+sway,cy=y+Math.sin(TAU*t*2+i)*1.5;
+  add(`M${x} 252 C${x-7} 224 ${cx+9} ${cy+27} ${cx} ${cy}`);
+  add(`M${x} 229 Q${x-27} 228 ${x-29} 209 Q${x-6} 211 ${x} 229`);
+  add(`M${x+1} 217 Q${x+23} 211 ${x+27} 196 Q${x+6} 198 ${x+1} 217`);
+  for(let j=0;j<6;j++){const a=j/6*TAU+Math.sin(TAU*t+i)*.08,dist=(5+10*bloom)*scale;add(ellipse(cx+Math.cos(a)*dist,cy+Math.sin(a)*dist,(5+9*bloom)*scale,(2+4*bloom)*scale,a));}
+  add(ellipse(cx,cy,6*scale,6*scale));
+ });
+ // Three outward bounds, an inquisitive sniff, then three homeward bounds.
+ const outward=smooth(t/.27),home=smooth((t-.72)/.28),travel=outward*(1-home);
+ const active=t<.27?t/.27:t>.72?(t-.72)/.28:0;
+ const hop=(t<.27||t>.72)?Math.pow(Math.sin(active*Math.PI*3),2):0;
+ const sniff=windowPulse(t,.3,.36,.62,.7),x=54+101*travel,y=234-23*hop;
+ const lean=sniff*(5+Math.sin(TAU*t*8)*2),ear=Math.sin(TAU*t*6)*3+hop*6;
+ const transform=`translate(${x} ${y}) rotate(${lean}) scale(${1+hop*.06} ${1-hop*.04})`;
+ add('M-19 3 C-33 -14 -22 -37 -1 -35 C10 -37 18 -27 19 -17 C22 -7 14 4 -2 5 Z',transform);
+ add(ellipse(-28,-13,7,7),transform);
+ add(`M13 -26 C2 -39 4 -54 17 -56 C29 -62 42 -51 42 -42 Q51 -35 42 -29 Q31 -20 13 -26`,transform);
+ add(`M14 -55 C${-1-ear} -86 ${7-ear} -98 ${17-ear*.2} -76 L22 -58 M25 -58 C${25+ear} -93 ${39+ear} -99 ${35+ear*.3} -74 L32 -56`,transform);
+ add(`M13 -63 Q${5-ear*.5} -84 ${9-ear*.5} -85 M29 -65 Q${32+ear*.5} -86 ${35+ear*.5} -86`,transform);
+ add(ellipse(32,-42,1.3,1.8),transform);
+ add('M43 -36 l-3 2 l3 1 M43 -30 l9 -2 M43 -27 l8 2',transform);
+ add(`M-8 -13 C-24 -8 -19 6 -6 6 L6 6 Q11 2 4 0 M16 -14 Q${20+hop*7} ${-3-hop*8} ${27+hop*6} ${2-hop*6} L15 3`,transform);
+ // Bee follows a closed flight path; wings flutter while it drinks and circles.
+ const [bx,by]=flight(t),wing=.35+.65*Math.pow(Math.sin(TAU*t*90),2),bee=`translate(${bx} ${by}) rotate(${Math.sin(TAU*t*4)*15})`;
+ add(ellipse(0,0,10,6),bee);add(ellipse(10,-1,4,4),bee);
+ add('M-3 -5 Q-6 0 -3 5 M3 -5 Q0 0 3 5 M14 -1 l5 3',bee);
+ add(ellipse(-4,-8,7,7*wing,-.6),bee);add(ellipse(3,-9,6,8*wing,.5),bee);
+ add('M-10 0 l-4 1 M10 -5 q0 -5 4 -6',bee);
+ // A travelling wake uses earlier positions along the same route, not a fixed dash.
+ for(let i=0;i<3;i++){const a=flight((t-.014-i*.009+1)%1),b=flight((t-.018-i*.009+1)%1);add(line([a,b]));}
+ return strokes;
+}
+export function errorStoryMarkup(){return `<div class="error-story" aria-hidden="true"><svg viewBox="0 0 400 300" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" data-error-story>${meadow(0).map(p=>`<path d="${p.d}" transform="${p.transform}"/>`).join('')}</svg></div>`;}
 export function initErrorStory(){
  const svg=document.querySelector('[data-error-story]');if(!svg)return;
- const paths=[...svg.children],samples=48,reduced=matchMedia('(prefers-reduced-motion: reduce)');
- const probe=document.createElementNS('http://www.w3.org/2000/svg','path');svg.append(probe);
- const frames=storyScenes.map(scene=>scene.map(d=>{probe.setAttribute('d',d);const length=probe.getTotalLength();return Array.from({length:samples},(_,i)=>{const p=probe.getPointAtLength(length*i/(samples-1));return [p.x,p.y];});}));probe.remove();
- const hold=1900,morph=800,period=hold+morph;let elapsed=0,last=0,frame=0,visible=false;
- function draw(){const scene=Math.floor(elapsed/period)%frames.length,phase=elapsed%period,raw=Math.max(0,(phase-hold)/morph),t=raw*raw*(3-2*raw),next=(scene+1)%frames.length;
-  paths.forEach((path,i)=>{const points=frames[scene][i].map(([x,y],j)=>{const [nx,ny]=frames[next][i][j];const bend=Math.sin(Math.PI*t)*7*Math.sin(i*1.7);return `${(x+(nx-x)*t+bend).toFixed(2)},${(y+(ny-y)*t-bend*.5).toFixed(2)}`;});path.setAttribute('d','M'+points.join(' L'));});
- }
- function tick(time){frame=0;if(!visible||document.hidden||reduced.matches){last=0;return;}if(last)elapsed=(elapsed+Math.min(time-last,50))%(period*frames.length);last=time;draw();frame=requestAnimationFrame(tick);}
- function sync(){if(frame)cancelAnimationFrame(frame);frame=0;last=0;if(reduced.matches){paths.forEach((p,i)=>p.setAttribute('d',storyScenes[0][i]));return;}if(visible&&!document.hidden)frame=requestAnimationFrame(tick);}
- new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;sync();}).observe(svg);
+ const paths=[...svg.children],reduced=matchMedia('(prefers-reduced-motion: reduce)');let elapsed=0,last=0,frame=0,visible=false;
+ const draw=t=>meadow(t).forEach((p,i)=>{paths[i].setAttribute('d',p.d);paths[i].setAttribute('transform',p.transform);});
+ function tick(time){frame=0;if(!visible||document.hidden||reduced.matches){last=0;return;}if(last)elapsed=(elapsed+Math.min(time-last,50))%20000;last=time;draw(elapsed/20000);frame=requestAnimationFrame(tick);}
+ function sync(){cancelAnimationFrame(frame);frame=0;last=0;if(reduced.matches){draw(.44);return;}if(visible&&!document.hidden)frame=requestAnimationFrame(tick);}
+ new IntersectionObserver(([e])=>{visible=e.isIntersecting;sync();}).observe(svg);
  document.addEventListener('visibilitychange',sync);reduced.addEventListener('change',sync);window.addEventListener('pagehide',()=>{cancelAnimationFrame(frame);frame=0;last=0;});window.addEventListener('pageshow',sync);
 }
