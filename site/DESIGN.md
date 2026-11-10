@@ -487,6 +487,8 @@ Sun/moon icons use .4s opacity and .5s transforms, with hidden state rotated -60
 
 ## URLs, accessibility and performance
 
+On mobile (up to 600px), the contact email and copy button share a horizontal row. Keep the copy button at the right edge with no top margin; let the address wrap within its available width on narrow screens.
+
 At viewport widths up to 600px, the copy-email button sits at the left edge of the contact row, immediately before the email address, with a 12px gap and no top margin. Larger layouts retain their existing arrangement. The contact email link uses `mailto:` at viewport widths up to 600px. Above 600px, retain the original Gmail compose URL. Reconcile the destination on resize and page restoration; preserve the displayed address and copy-email behavior.
 
 Ordinary home section clicks use history state `portfolioSection` and clean URLs, preserving active-section state, focus and browser navigation. The footer uses this same route back to the hero. Native anchor hrefs remain for no-JavaScript behaviour, modified clicks, direct links and new tabs. Cross-page company anchors and deep links must remain when needed for functionality. Never remove every hash indiscriminately. Native scroll restoration must continue to work on back/forward visits.
