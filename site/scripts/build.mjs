@@ -14,7 +14,7 @@ if (path.dirname(dist)!==path.resolve(root) || path.basename(dist)!=='dist') thr
 await rm(dist,{recursive:true,force:true});
 await mkdir(dist,{recursive:true});
 await cp(path.join(root,'public'),dist,{recursive:true});
-for(const name of ['styles.css','app.js','navigation.js','motion.js','gallery.js','toolkit.js','slideshow.js','project-browser.js','project-hover.js']) await cp(path.join(root,'src',name),path.join(dist,name));
+for(const name of ['styles.css','app.js','navigation.js','motion.js','gallery.js','toolkit.js','slideshow.js','project-browser.js','project-hover.js','error-story.js']) await cp(path.join(root,'src',name),path.join(dist,name));
 await mkdir(path.join(dist,'assets/placeholders'),{recursive:true});
 for(const a of placeholderAssets().filter(a=>a.name.startsWith('certificate-')&&!a.supplied))await writeFile(path.join(dist,'assets/placeholders',a.name),a.content);
 await writeFile(path.join(dist,'index.html'),homePage());

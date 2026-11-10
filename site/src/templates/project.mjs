@@ -1,3 +1,4 @@
+import { errorStoryMarkup } from '../error-story.js';
 import { projectSlideshow } from './slideshow.mjs';
 import { discoverButton } from './components.mjs';
 import { projects } from '../content/projects.mjs';
@@ -21,5 +22,5 @@ export function projectPage(project) {
 }
 
 export function notFoundPage() {
-  return layout({title:'Page not found',path:'/404.html',noindex:true,content:`<section class="not-found wrap"><p class="eyebrow accent">404 / Page not found</p><h1>I think we may have<br>a problem here...</h1><p>This page could not be found. The address may be incorrect or the page may have moved.</p><p>Are you sure your Wi-Fi or mobile data has an active <strong>internet</strong> connection?</p><p>Check the URL for any typos, then try refreshing or return to the homepage.</p><div class="not-found-actions"><button type="button" class="refresh-button" data-refresh-page hidden><svg class="refresh-icon" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6 7a7 7 0 0 1 12-1l2 6M4 12l2 6a7 7 0 0 0 12-1"/></svg>Refresh</button>${discoverButton('https://edwingeorgeshaji.com/','Go back to the homepage')}</div><div class="error-static" aria-hidden="true"><span>NO SIGNAL</span></div></section>`});
+  return layout({title:'Page not found',path:'/404.html',noindex:true,content:`<section class="not-found wrap"><p class="eyebrow accent">404 / Page not found</p><h1>I think we may have<br>a problem here...</h1><p>This page could not be found. The address may be incorrect or the page may have moved.</p><p>Are you sure your Wi-Fi or mobile data has an active <strong>internet</strong> connection?</p><p>Check the URL for any typos, then try refreshing or return to the homepage.</p><div class="not-found-actions"><button type="button" class="refresh-button" data-refresh-page hidden><svg class="refresh-icon" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6 7a7 7 0 0 1 12-1l2 6M4 12l2 6a7 7 0 0 0 12-1"/></svg>Refresh</button>${discoverButton('https://edwingeorgeshaji.com/','Go back to the homepage')}</div>${errorStoryMarkup()}</section>`});
 }

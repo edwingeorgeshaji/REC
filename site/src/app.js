@@ -113,3 +113,5 @@ if(refreshPage){refreshPage.hidden=false;refreshPage.addEventListener('click',()
 
 // Discourage casual image saving; browser-delivered images remain accessible.
 document.querySelectorAll('.hero-image,.portrait img').forEach(img=>{img.draggable=false;img.addEventListener('contextmenu',event=>event.preventDefault());});
+
+if(document.querySelector('[data-error-story]'))import('./error-story.js').then(({initErrorStory})=>initErrorStory());
