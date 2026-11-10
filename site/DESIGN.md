@@ -237,6 +237,8 @@ Keep the existing order: hero, About, toolkit preview, selected projects, experi
 
 Project images are static, clickable previews. Clicking opens the corresponding project detail page; it must not download the image. Do not reintroduce autoplay slideshows or pause controls to project cards. Image previews fill their frames with object-fit: cover; some cropping is intentional. The original image remains available in the enlarged viewer.
 
+The homepage Selected work heading reads “A few things / I’ve built.” with a line break after “things”.
+
 ### Project catalogue and ordering
 
 The shared projects array determines the index order and next-project navigation. Current order:
