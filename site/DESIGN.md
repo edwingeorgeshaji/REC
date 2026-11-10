@@ -59,6 +59,8 @@ Routes are `/`, `/projects/`, `/experience/`, `/certificates/`, `/about/`, `/too
 
 ## Adding, editing and rearranging projects
 
+The Quantum Hack Day Kochi certificate appears immediately before the Kaggle Gen AI Intensive certificate in the collection and landscape marquee.
+
 ### Certificate orientation rule
 
 When adding a certificate, render its actual orientation and record its image width and height. Landscape certificates appear in the certificate collection and homepage marquee. Portrait certificates appear in the collection only. Preserve the existing `!c.portrait` marquee filter.

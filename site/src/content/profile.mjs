@@ -36,7 +36,7 @@ export const profile = {
       "slug": "quantum-hack-day-kochi-2026",
       "title": "Qiskit Fall Fest 2026 - Quantum Hack Day Kochi",
       "issuer": "IBM Quantum · QuantumX",
-      "group": "ibm",
+      "group": "quantumx",
       "priority": 15,
       "type": "Participation",
       "date": "1 November 2026",
