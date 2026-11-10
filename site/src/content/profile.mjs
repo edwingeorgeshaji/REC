@@ -3,7 +3,7 @@ export const profile = {
   "name": "Edwin George Shaji",
   "description": "Computer Science and Engineering student exploring software, artificial intelligence, and quantum computing.",
   "siteUrl": "https://edwin-george-shaji.cozy-larch-9109.chatgpt.site",
-  "email": "edwingeorgeshajipadiyanickal@gmail.com",
+  "email": "hi@edwingeorgeshaji.com",
   "location": "Calicut, Keralam, India",
   "languages": [
     "English",
