@@ -33,6 +33,20 @@ export const profile = {
   ],
   "certificates": [
     {
+      "slug": "quantum-hack-day-kochi-2026",
+      "title": "Qiskit Fall Fest 2026 - Quantum Hack Day Kochi",
+      "issuer": "IBM Quantum · QuantumX",
+      "group": "ibm",
+      "priority": 15,
+      "type": "Participation",
+      "date": "1 November 2026",
+      "description": "Recognised for contribution and dedication during Qiskit Fall Fest 2026 x QuantumX - Quantum Hack Day Kochi, held on 1 November 2026.",
+      "image": "/assets/certificates/quantum-hack-day-kochi-2026/certificate.png",
+      "width": 1600,
+      "height": 900,
+      "published": true
+    },
+    {
       "slug": "innovare-2026-first-place",
       "title": "Innovare 2026 - 1st Place",
       "issuer": "IEEE IAS SBC RIT",

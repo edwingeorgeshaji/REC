@@ -59,6 +59,10 @@ Routes are `/`, `/projects/`, `/experience/`, `/certificates/`, `/about/`, `/too
 
 ## Adding, editing and rearranging projects
 
+### Certificate orientation rule
+
+When adding a certificate, render its actual orientation and record its image width and height. Landscape certificates appear in the certificate collection and homepage marquee. Portrait certificates appear in the collection only. Preserve the existing `!c.portrait` marquee filter.
+
 ### Add a project
 
 1. Add one object to the exported `projects` array in `src/content/projects.mjs`. Use a unique stable lowercase hyphenated slug. There is no `published` filter for projects: every array entry is published and gets a page.
