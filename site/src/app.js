@@ -78,6 +78,20 @@ window.addEventListener('pageshow',restoreTheme);
 window.addEventListener('pagereveal',restoreTheme);
 restoreTheme();
 
+// Match the CSS mobile breakpoint while preserving the desktop destination.
+const contactEmail=document.querySelector('.contact-email > a');
+if(contactEmail){
+  const mobileContact=matchMedia('(max-width: 600px)');
+  const desktopEmailHref=contactEmail.getAttribute('href');
+  const emailAddress=new URL(desktopEmailHref,location.href).searchParams.get('to');
+  if(emailAddress){
+    const updateEmailHref=()=>contactEmail.setAttribute('href',mobileContact.matches?'mailto:'+emailAddress:desktopEmailHref);
+    updateEmailHref();
+    mobileContact.addEventListener('change',updateEmailHref);
+    window.addEventListener('pageshow',updateEmailHref);
+  }
+}
+
 const copy=document.querySelector('[data-copy]');
 if(copy&&navigator.clipboard?.writeText){
   copy.hidden=false;let timer;
