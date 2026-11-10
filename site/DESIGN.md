@@ -553,4 +553,4 @@ New navigation buttons use the shared animated discoverButton component. Compact
 
 ### 404 meadow story
 
-A continuous 20-second accent-colour meadow with two small striped bees, fluttering wings, opening flowers and swaying grass. No rabbit and no flight trails. A smaller cloud sits on the right; the left cloud partially conceals a small sun with alternating long/short single-stroke rays. On mobile up to 600px, center the illustration above all 404 content. Desktop keeps it to the right. Pause offscreen/in hidden tabs; reduced motion shows a still scene. Source: src/error-story.js.
+A continuous 20-second accent-colour meadow with two striped bees at 0.78 scale, fluttering wings, opening flowers and swaying grass. No rabbit and no flight trails. Keep only the left cloud, partially concealing a small sun with alternating long/short single-stroke rays. On mobile up to 600px, center the illustration above all 404 content. Desktop keeps it to the right. Pause offscreen/in hidden tabs; reduced motion shows a still scene. Source: src/error-story.js.

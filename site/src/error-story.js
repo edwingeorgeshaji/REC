@@ -1,5 +1,5 @@
 // A continuous 20-second meadow story, drawn entirely with persistent SVG strokes.
-// Two bees visit a flowering meadow under drifting clouds and a peeking sun.
+// Two bees visit a flowering meadow under a drifting cloud and a peeking sun.
 const TAU=Math.PI*2;
 const smooth=t=>{t=Math.max(0,Math.min(1,t));return t*t*(3-2*t);};
 const windowPulse=(t,a,b,c,d)=>smooth((t-a)/(b-a))*(1-smooth((t-c)/(d-c)));
@@ -24,7 +24,6 @@ function meadow(t){
  for(let i=0;i<8;i++){const a=(-155+i*27)*Math.PI/180,len=i%2?5:9;add(line([[sunX+Math.cos(a)*22,sunY+Math.sin(a)*22],[sunX+Math.cos(a)*(22+len),sunY+Math.sin(a)*(22+len)]]));}
  // A small cloud stretches gently; it never cuts between poses.
  add(`M${43+wave*5} 65 c-9 -1 -11 -14 1 -17 c1 -18 28 -23 36 -8 c17 -7 28 11 17 21 c-11 6 -37 4 -54 4`);
- add('M0 0 c-9 -1 -11 -14 1 -17 c1 -18 28 -23 36 -8 c17 -7 28 11 17 21 c-11 6 -37 4 -54 4',`translate(${292-wave*4} 75) scale(.78)`);
  const flowers=[[268,139,1],[306,174,.78],[225,180,.7]];
  flowers.forEach(([x,y,scale],i)=>{
   const bloom=.3+.7*windowPulse(t,.05+i*.07,.16+i*.07,.69+i*.035,.94+i*.015),sway=Math.sin(TAU*t*3+i)*3;
@@ -38,7 +37,7 @@ function meadow(t){
  // Two small bees have separate heads, thoraxes, striped abdomens, antennae and legs.
  for(let i=0;i<2;i++){
   const phase=(t+i*.43)%1,[bx,by]=flight(phase),wing=.3+.7*Math.pow(Math.sin(TAU*t*90+i*1.3),2);
-  const bee=`translate(${bx} ${by+i*9}) rotate(${Math.sin(TAU*phase*4)*18}) scale(.64)`;
+  const bee=`translate(${bx} ${by+i*9}) rotate(${Math.sin(TAU*phase*4)*18}) scale(.78)`;
   add(ellipse(-6,1,9,5.5),bee);add(ellipse(3,0,4.3,4.5),bee);add(ellipse(9,-1,3.5,3.5),bee);
   add('M-11 -3 Q-13 1 -11 5 M-6 -4 Q-8 1 -6 6 M-1 -3 Q-3 1 -1 5',bee);
   add(ellipse(0,-7,6,7*wing,-.7),bee);add(ellipse(4,-7,5,7*wing,.5),bee);
