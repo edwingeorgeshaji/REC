@@ -229,6 +229,87 @@ export const projects = [
     }
   },
   {
+    "slug": "jel-q-site",
+    "title": "JeL Q-Site",
+    "fullTitle": "Energy Dispatch, Reserve & Recovery",
+    "category": "Quantum computing · Energy systems",
+    "featured": false,
+    "year": "2026",
+    "status": "Working prototype",
+    "role": "Project development",
+    "summary": "A terminal-based prototype comparing low-cost microgrid dispatch with battery-reserve plans for essential services during a power outage.",
+    "stack": [
+      "Python",
+      "Qiskit",
+      "QAOA",
+      "NumPy",
+      "SciPy"
+    ],
+    "repository": "https://github.com/edwingeorgeshaji/JeL-Q-Site",
+    "demo": null,
+    "teammates": [
+      {
+        "name": "Joswin Joshy",
+        "url": "https://www.linkedin.com/in/joswin-joshy-8948b9326/"
+      },
+      {
+        "name": "Layel K Manoj",
+        "url": "https://www.linkedin.com/in/layelkmanoj/"
+      }
+    ],
+    "images": [
+      {
+        "src": "/assets/projects/jel-q-site/main.png",
+        "alt": "JeL Q-Site title in cyan on a black background.",
+        "width": 1672,
+        "height": 941
+      },
+      {
+        "src": "/assets/projects/jel-q-site/dashboard.png",
+        "alt": "Q-Site energy reserve and recovery dashboard with example and custom-input options.",
+        "width": 1672,
+        "height": 941
+      },
+      {
+        "src": "/assets/projects/jel-q-site/energy-inputs.png",
+        "alt": "Terminal inputs for normal demand, essential outage demand and stored battery energy.",
+        "width": 1672,
+        "height": 941
+      }
+    ],
+    "previewImage": {
+      "src": "/assets/projects/jel-q-site/main.png",
+      "alt": "JeL Q-Site title in cyan on a black background.",
+      "width": 1672,
+      "height": 941
+    },
+    "homeImage": {
+      "src": "/assets/projects/jel-q-site/main.png",
+      "alt": "JeL Q-Site title in cyan on a black background.",
+      "width": 1672,
+      "height": 941
+    },
+    "sections": [
+      {
+        "title": "Planning for everyday demand and outages",
+        "body": [
+          "Built for Quantum Hack Day Kochi, organised by QuantumX and TinkerHub Foundation, under the Quantum Simulation for Energy Systems challenge. The dashboard supports example scenarios and custom energy requirements.",
+          "It allocates solar, wind, battery energy, grid imports and diesel, then compares economical dispatch with reserve-aware planning. Classical checks evaluate outage coverage and additional battery-energy recovery options."
+        ]
+      },
+      {
+        "title": "Quantum simulation with classical checks",
+        "body": [
+          "QAOA circuits run locally through Qiskit, with classical optimisation and exact baselines. The implementation records measured samples, feasibility and optimisation diagnostics.",
+          "This prototype uses synthetic inputs and two one-hour intervals. It does not establish quantum speedup, physical-site validation or automatic equipment control."
+        ]
+      }
+    ],
+    "pending": [
+      "Individual contribution details and exact project dates."
+    ]
+  },
+  {
     "slug": "q-site",
     "title": "Q-Site",
     "fullTitle": "Hybrid Quantum Resource Allocation for AI-Loaded Microgrids",
