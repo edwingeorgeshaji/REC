@@ -48,7 +48,7 @@ async function changeTheme(){
       root.classList.add('theme-changing');
       const transition=document.startViewTransition(()=>setTheme(next));
       await transition.ready;
-      const timing={duration:550,easing:'cubic-bezier(.22,.75,.18,1)'};
+      const timing={duration:550,easing:'cubic-bezier(.22,.75,.18,1)',fill:'forwards'};
       await root.animate({clipPath:[`circle(0px at ${x}px ${y}px)`,`circle(${radius}px at ${x}px ${y}px)`]}, {...timing,pseudoElement:'::view-transition-new(root)'}).finished;
       await transition.finished;
     }else{
@@ -109,4 +109,7 @@ initSlideshows();
 initProjectBrowser();
 
 const refreshPage=document.querySelector('[data-refresh-page]');
-if(refreshPage){refreshPage.hidden=false;refreshPage.addEventListener('click',()=>location.reload());}
+if(refreshPage){refreshPage.hidden=false;refreshPage.addEventListener('click',()=>{refreshPage.disabled=true;refreshPage.classList.add('refreshing');setTimeout(()=>location.reload(),reduced.matches?0:450);});}
+
+// Discourage casual image saving; browser-delivered images remain accessible.
+document.querySelectorAll('.hero-image,.portrait img').forEach(img=>{img.draggable=false;img.addEventListener('contextmenu',event=>event.preventDefault());});

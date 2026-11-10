@@ -3,7 +3,7 @@ export const profile = {
   "name": "Edwin George Shaji",
   "description": "Computer Science and Engineering student exploring software, artificial intelligence, and quantum computing.",
   "siteUrl": "https://edwin-george-shaji.cozy-larch-9109.chatgpt.site",
-  "email": "hi@edwingeorgeshaji.com",
+  "email": "hello@edwingeorgeshaji.com",
   "location": "Calicut, Keralam, India",
   "languages": [
     "English",
@@ -15,7 +15,7 @@ export const profile = {
   "about": [
     "I’ve been drawn to computers since childhood. The questions have only gotten more interesting.",
     "I’m a Computer Science and Engineering student at Amal Jyothi College of Engineering, exploring software development, artificial intelligence, and quantum computing. I like taking an unfamiliar idea apart, understanding it, and building something with it.",
-    "I’m working towards becoming a software developer, with a particular interest in quantum software. I work with Qiskit and PennyLane."
+    "I’m working towards becoming a software developer, with a particular interest in quantum software."
   ],
   "education": [
     {

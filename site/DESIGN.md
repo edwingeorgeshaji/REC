@@ -545,4 +545,8 @@ After each future change, edit the relevant current section here, update example
 
 ## Page not found
 
-The 404 heading reads “I think we have a problem here...”. Explain that the address may be incorrect or the page moved, then ask whether Wi-Fi/mobile data has an active **internet** connection. Provide Refresh (reload the current URL) and a link to https://edwingeorgeshaji.com/. Keep the layout responsive and the page noindex. This page cannot replace the browser’s own network-error screen.
+The 404 heading reads “I think we may have a problem here...”. Explain that the address may be incorrect or the page moved, then ask whether Wi-Fi/mobile data has an active **internet** connection. Provide Refresh (reload the current URL) and a link to https://edwingeorgeshaji.com/. Keep the layout responsive and the page noindex. This page cannot replace the browser’s own network-error screen.
+
+## Action and interaction defaults
+
+New navigation buttons use the shared animated discoverButton component. Compact utility actions use the copy-email pill styling with an icon and press/hover feedback. Refresh spins its icon before reloading. Contact email is hello@edwingeorgeshaji.com. Certificate arrow navigation eases its offset; galleries support horizontal swipes inline and in fullscreen. Remove image hover scaling to prevent edge seams. Hero brightness is increased modestly with a contrasting name shadow. Portrait/hero context-menu and dragging are discouraged, not secure download prevention. The 404 includes URL and connection checks with decorative, reduced-motion-aware static.
