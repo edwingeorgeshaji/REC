@@ -366,3 +366,6 @@ html:has(.experience-record:target){scroll-behavior:auto}
 @media(hover:hover) and (pointer:fine){.inline-image-controls button:hover,.lightbox-panel button:hover{color:#e8ede2}.inline-image-controls button:hover::before,.lightbox-panel button:hover::before{transform:translateY(0)}}
 .inline-image-controls button:active,.lightbox-panel button:active{transform:scale(.94)}
 @media(prefers-reduced-motion:reduce){.inline-image-controls button,.lightbox-panel button,.inline-image-controls button::before,.lightbox-panel button::before{transition:none}}
+
+/* Keep mobile gallery arrows anchored as the counter changes. */
+@media(max-width:600px){.inline-image-controls{display:grid;grid-template-columns:44px 64px 44px}.inline-image-controls [data-inline-status]{text-align:center;font-variant-numeric:tabular-nums}.lightbox-status{font-variant-numeric:tabular-nums}}
