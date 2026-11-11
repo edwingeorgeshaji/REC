@@ -47,3 +47,36 @@ assert.ok(home.includes('Jalvair.otf')&&home.includes('Parceh.otf'),'Supplied fo
 console.log(`Passed: ${pages.length} pages, internal links, anchors, unique IDs, asset use and accessibility structure.`);
 
 for(const c of certificates){await assert.rejects(access(path.join(root,`certificates/${c.slug}/index.html`)));assert.equal(home.includes(`/certificates/#${c.slug}`),!c.portrait,'Marquee includes only non-portrait certificates');}
+
+// Audit generated metadata, not only template inputs.
+const origin='https://edwingeorgeshaji.com';
+const titles=new Set(),descriptions=new Set(),canonicalUrls=[];
+for(const page of pages){
+ const html=await readFile(path.join(root,page),'utf8');
+ const title=html.match(/<title>(.*?)<\/title>/)?.[1];
+ const meta=name=>html.match(new RegExp(`<meta (?:name|property)="${name}" content="([^"]*)"`))?.[1];
+ assert.ok(title&&!titles.has(title),`Unique title: ${page}`);titles.add(title);
+ const description=meta('description');
+ assert.ok(description&&!descriptions.has(description),`Unique description: ${page}`);descriptions.add(description);
+ const url=origin+'/'+page.replace(/index\.html$/,'');
+ const canonicals=[...html.matchAll(/<link rel="canonical" href="([^"]+)"/g)];
+ if(page==='404.html'){assert.equal(meta('robots'),'noindex');assert.equal(canonicals.length,0);}
+ else{assert.ok(!/noindex/i.test(html));assert.equal(canonicals.length,1);assert.equal(canonicals[0][1],url);canonicalUrls.push(url);}
+ assert.equal(meta('og:url'),url);
+ for(const key of ['og:title','twitter:title'])assert.equal(meta(key),title);
+ for(const key of ['og:description','twitter:description'])assert.equal(meta(key),description);
+ assert.equal(meta('twitter:card'),'summary_large_image');
+ for(const key of ['og:image','twitter:image']){const image=new URL(meta(key));assert.equal(image.origin,origin);await access(path.join(root,image.pathname));}
+ const schema=JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1]);
+ assert.equal(schema['@context'],'https://schema.org');
+ assert.equal(schema['@graph'].find(item=>item['@type']==='WebPage').url,url);
+ assert.ok(!html.includes('cozy-larch-9109'),'No previous production origin');
+}
+const sitemap=await readFile(path.join(root,'sitemap.xml'),'utf8');
+const locations=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);
+assert.equal(locations.length,new Set(locations).size,'Unique sitemap entries');
+assert.deepEqual(locations.sort(),canonicalUrls.sort(),'Sitemap covers exactly the indexable pages');
+const robots=await readFile(path.join(root,'robots.txt'),'utf8');
+assert.ok(robots.includes('Allow: /')&&!robots.includes('Disallow: /'));
+assert.ok(robots.includes(`Sitemap: ${origin}/sitemap.xml`));
+console.log(`SEO passed: ${canonicalUrls.length} canonical URLs, sitemap coverage, unique metadata, social cards and JSON-LD.`);

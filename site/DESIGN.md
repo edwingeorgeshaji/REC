@@ -564,3 +564,7 @@ New navigation buttons use the shared animated discoverButton component. Compact
 ### 404 meadow story
 
 A continuous 20-second accent-colour meadow with one larger striped bee at full scale, fluttering wings, opening flowers and swaying grass. No rabbit and no flight trails. Keep only the left cloud, partially concealing a small sun with alternating long/short single-stroke rays. On mobile up to 600px, center the illustration below all 404 content and actions. Desktop keeps it to the right. Pause offscreen/in hidden tabs; reduced motion shows a still scene. Source: src/error-story.js.
+
+## Search metadata
+
+Production origin is https://edwingeorgeshaji.com. All indexable pages have self-referencing canonicals, unique titles/descriptions, Open Graph and Twitter large-image cards. Sitemap lists all generated public pages except the noindex 404; certificate anchors are not separate pages. Person, WebSite and WebPage JSON-LD share stable production IDs. Keep hero/about primary images prioritised; defer below-fold galleries, certificates and logos. Hosting should redirect www to the apex domain. Validate generated SEO metadata with npm run check after builds.
