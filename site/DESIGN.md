@@ -574,3 +574,5 @@ Twitter cards use the actual 1200×630 hero screenshot at /assets/hero-social.pn
 ## Google image indexing
 
 Homepage only uses max-image-preview:none and the owner-supplied portfolio description. General crawling remains allowed. Googlebot-Image is denied all paths except /assets/edwin-home-480.webp, /assets/edwin-home-920.webp and /assets/edwin-portrait.webp. Certificates, project imagery, logos, decorative backgrounds and social-card screenshots are excluded from Google Images. Add future personal photographs explicitly to this allowlist after review. No page-level noimageindex; retain standard img elements, descriptive portrait alt text and the existing context-menu/drag protections. Search engines decide indexing and must recrawl before exclusions take effect.
+
+The About page uses ProfilePage JSON-LD with mainEntity referencing the existing Person. Person includes the crawlable portrait and verified GitHub/LinkedIn sameAs links. Other pages remain WebPage. Contact is /#contact; achievements are within /certificates/, not standalone routes. Do not invent sitemap entries for these sections or promise Google sitelinks.
