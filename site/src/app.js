@@ -44,12 +44,13 @@ async function changeTheme(){
       const blendTop=heroBox?heroBox.bottom-blendHeight:box.top+box.height/2;
       const x=box.left+box.width/2;
       const y=hero?Math.max(0,Math.min(innerHeight,blendTop)):box.top+box.height/2;
-      const radius=Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y));
+      const radius=Math.ceil(Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y)))+2;
+      root.style.setProperty('--theme-x',`${x}px`);
+      root.style.setProperty('--theme-y',`${y}px`);
+      root.style.setProperty('--theme-radius',`${radius}px`);
       root.classList.add('theme-changing');
       const transition=document.startViewTransition(()=>setTheme(next));
       await transition.ready;
-      const timing={duration:550,easing:'cubic-bezier(.22,.75,.18,1)',fill:'forwards'};
-      await root.animate({clipPath:[`circle(0px at ${x}px ${y}px)`,`circle(${radius}px at ${x}px ${y}px)`]}, {...timing,pseudoElement:'::view-transition-new(root)'}).finished;
       await transition.finished;
     }else{
       root.classList.add('theme-fallback');
@@ -108,8 +109,6 @@ initSlideshows();
 
 initProjectBrowser();
 
-const refreshPage=document.querySelector('[data-refresh-page]');
-if(refreshPage){refreshPage.hidden=false;refreshPage.addEventListener('click',()=>{refreshPage.disabled=true;refreshPage.classList.add('refreshing');setTimeout(()=>location.reload(),reduced.matches?0:450);});}
 
 // Discourage casual image saving; browser-delivered images remain accessible.
 document.querySelectorAll('.hero-image,.portrait img').forEach(img=>{img.draggable=false;img.addEventListener('contextmenu',event=>event.preventDefault());});
