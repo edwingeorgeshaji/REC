@@ -64,7 +64,7 @@ for(const page of pages){
  if(page==='404.html'){assert.equal(meta('robots'),'noindex');assert.equal(canonicals.length,0);}
  else{assert.ok(!/noindex/i.test(html));assert.equal(canonicals.length,1);assert.equal(canonicals[0][1],url);canonicalUrls.push(url);}
  assert.equal(meta('og:url'),url);
- assert.equal(meta('og:title'),title);
+ assert.equal(meta('og:title'),page==='index.html'?'Edwin George Shaji - R.E.C':title);
  assert.equal(meta('twitter:title'),page==='index.html'?'Edwin George Shaji - R.E.C':title);
  assert.equal(meta('og:description'),description);
  assert.equal(meta('twitter:description'),'Edwin George Shaji - R.E.C');
