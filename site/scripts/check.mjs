@@ -77,7 +77,7 @@ for(const page of pages){
  assert.equal(pageSchema.url,url);
  const person=schema['@graph'].find(item=>item['@type']==='Person');
  assert.ok(person.name&&person.sameAs.includes('https://github.com/edwingeorgeshaji')&&person.sameAs.includes('https://www.linkedin.com/in/edwingeorgeshaji'));
- assert.equal(person.image,`${origin}/assets/edwin-portrait.webp`);
+ assert.equal(person.image,`${origin}/assets/edwin-george-shaji-2.webp`);
  if(page==='about/index.html'){assert.equal(pageSchema['@type'],'ProfilePage');assert.equal(pageSchema.mainEntity['@id'],person['@id']);}else assert.equal(pageSchema['@type'],'WebPage');
  assert.ok(!html.includes('cozy-larch-9109'),'No previous production origin');
 }
@@ -88,7 +88,7 @@ assert.deepEqual(locations.sort(),canonicalUrls.sort(),'Sitemap covers exactly t
 const robots=await readFile(path.join(root,'robots.txt'),'utf8');
 assert.ok(robots.startsWith('User-agent: *\nAllow: /\n'));
 assert.ok(robots.includes('User-agent: Googlebot-Image\nDisallow: /\n'));
-const photoPaths=['/assets/edwin-home-480.webp','/assets/edwin-home-920.webp','/assets/edwin-portrait.webp'];
+const photoPaths=['/assets/edwin-george-shaji-1-480.webp','/assets/edwin-george-shaji-1.webp','/assets/edwin-george-shaji-2.webp'];
 const imageRules=robots.split('User-agent: Googlebot-Image')[1];
 assert.deepEqual([...imageRules.matchAll(/^Allow: (.+)$/gm)].map(m=>m[1]),photoPaths);
 for(const photo of photoPaths)await access(path.join(root,photo));
