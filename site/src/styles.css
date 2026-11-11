@@ -360,15 +360,14 @@ html:has(.experience-record:target){scroll-behavior:auto}
 @media(max-width:600px){.not-found{display:flex;flex-direction:column;padding-top:80px}.not-found>.error-story{order:1;align-self:center;width:min(100%,340px);margin:35px auto 0}.not-found-actions{align-self:flex-start}}
 
 /* Hover fills belong to mouse input; touch taps must not latch a hover state. */
-.inline-image-controls button,.lightbox-panel button{isolation:isolate;overflow:hidden;transition:color .3s var(--ease),transform .2s var(--ease)}
+.inline-image-controls button,.lightbox-panel button{isolation:isolate;overflow:hidden;transition:color .3s var(--ease)}
 .inline-image-controls button{position:relative}
 .inline-image-controls button::before,.lightbox-panel button::before{content:"";position:absolute;inset:0;border-radius:inherit;background:#192B21;transform:translateY(105%);transition:transform .3s var(--ease);z-index:-1}
 @media(hover:hover) and (pointer:fine){.inline-image-controls button:hover,.lightbox-panel button:hover{color:#e8ede2}.inline-image-controls button:hover::before,.lightbox-panel button:hover::before{transform:translateY(0)}}
-.inline-image-controls button:active,.lightbox-panel button:active{transform:scale(.94)}
+.inline-image-controls button:active,.lightbox-panel button:active{transform:none}
 @media(prefers-reduced-motion:reduce){.inline-image-controls button,.lightbox-panel button,.inline-image-controls button::before,.lightbox-panel button::before{transition:none}}
 
-/* Keep mobile gallery arrows anchored as the counter changes. */
-@media(max-width:600px),(hover:none){
+/* Anchor gallery controls independently of counter text at every viewport. */
  .inline-image-controls{position:relative;display:block;height:60px;padding:0}
  .inline-image-controls button{position:absolute;top:8px;transform:none;transition:color .3s var(--ease)}
  .inline-image-controls [data-inline-step="-1"]{left:calc(50% - 96px)}
@@ -376,4 +375,5 @@ html:has(.experience-record:target){scroll-behavior:auto}
  .inline-image-controls [data-inline-status]{position:absolute;left:calc(50% - 32px);top:8px;width:64px;height:44px;display:grid;place-items:center;font-variant-numeric:tabular-nums}
  .inline-image-controls button:active,.lightbox-panel button:active{transform:none}
  .lightbox-status{font-variant-numeric:tabular-nums}
-}
+ .inline-image-controls svg,.lightbox-panel button svg{transition:none;flex:none}
+
