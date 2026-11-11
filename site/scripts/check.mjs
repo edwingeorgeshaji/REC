@@ -12,6 +12,7 @@ const references=new Set(['index.html','404.html','sitemap.xml','robots.txt','_h
 for(const page of pages){
   const html=await readFile(path.join(root,page),'utf8');
   references.add(page);
+  for(const image of html.matchAll(/<meta (?:name|property)="(?:twitter:image|og:image)" content="([^"]+)"/g))references.add(new URL(image[1]).pathname.slice(1));
   assert.equal((html.match(/<h1[ >]/g)||[]).length,1,`One primary heading: ${page}`);
   const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
   assert.equal(ids.length,new Set(ids).size,`Unique IDs: ${page}`);
@@ -63,10 +64,13 @@ for(const page of pages){
  if(page==='404.html'){assert.equal(meta('robots'),'noindex');assert.equal(canonicals.length,0);}
  else{assert.ok(!/noindex/i.test(html));assert.equal(canonicals.length,1);assert.equal(canonicals[0][1],url);canonicalUrls.push(url);}
  assert.equal(meta('og:url'),url);
- for(const key of ['og:title','twitter:title'])assert.equal(meta(key),title);
- for(const key of ['og:description','twitter:description'])assert.equal(meta(key),description);
+ assert.equal(meta('og:title'),title);
+ assert.equal(meta('twitter:title'),page==='index.html'?'Edwin George Shaji - R.E.C':title);
+ assert.equal(meta('og:description'),description);
+ assert.equal(meta('twitter:description'),'Edwin George Shaji - R.E.C');
+ assert.equal(meta('twitter:image'),`${origin}/assets/hero-social.png`);
  assert.equal(meta('twitter:card'),'summary_large_image');
- for(const key of ['og:image','twitter:image']){const image=new URL(meta(key));assert.equal(image.origin,origin);await access(path.join(root,image.pathname));}
+ for(const key of ['og:image','twitter:image']){const image=new URL(meta(key));assert.equal(image.origin,origin);await access(path.join(root,image.pathname));references.add(image.pathname.slice(1));}
  const schema=JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1]);
  assert.equal(schema['@context'],'https://schema.org');
  assert.equal(schema['@graph'].find(item=>item['@type']==='WebPage').url,url);
