@@ -81,6 +81,15 @@ const locations=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);
 assert.equal(locations.length,new Set(locations).size,'Unique sitemap entries');
 assert.deepEqual(locations.sort(),canonicalUrls.sort(),'Sitemap covers exactly the indexable pages');
 const robots=await readFile(path.join(root,'robots.txt'),'utf8');
-assert.ok(robots.includes('Allow: /')&&!robots.includes('Disallow: /'));
+assert.ok(robots.startsWith('User-agent: *\nAllow: /\n'));
+assert.ok(robots.includes('User-agent: Googlebot-Image\nDisallow: /\n'));
+const photoPaths=['/assets/edwin-home-480.webp','/assets/edwin-home-920.webp','/assets/edwin-portrait.webp'];
+const imageRules=robots.split('User-agent: Googlebot-Image')[1];
+assert.deepEqual([...imageRules.matchAll(/^Allow: (.+)$/gm)].map(m=>m[1]),photoPaths);
+for(const photo of photoPaths)await access(path.join(root,photo));
+assert.ok(home.includes('<meta name="robots" content="max-image-preview:none">'));
+assert.ok(home.includes('<meta name="description" content="Personal portfolio showcasing a collection of projects, creative experiments, technical explorations and achievements, bringing together ideas, innovation and technology in one place.">'));
+for(const page of pages){const html=await readFile(path.join(root,page),'utf8');assert.ok(!html.includes('noimageindex'));if(page!=='index.html')assert.ok(!html.includes('max-image-preview:none'));}
+for(const page of ['index.html','about/index.html']){const html=await readFile(path.join(root,page),'utf8');const photos=[...html.matchAll(/<img[^>]*src="\/assets\/edwin-[^>]+>/g)];assert.ok(photos.length);for(const [img] of photos)assert.match(img,/alt="Edwin George Shaji[^"]+"/);}
 assert.ok(robots.includes(`Sitemap: ${origin}/sitemap.xml`));
 console.log(`SEO passed: ${canonicalUrls.length} canonical URLs, sitemap coverage, unique metadata, social cards and JSON-LD.`);
