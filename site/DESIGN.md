@@ -580,3 +580,5 @@ General crawling remains allowed. Googlebot-Image is denied all paths except /as
 About uses ProfilePage mainEntity referencing the Person, with verified GitHub/LinkedIn sameAs. Contact is /#contact; achievements are within /certificates/. Google chooses thumbnails, rankings and sitelinks; preferred metadata cannot guarantee a result.
 
 Keep /favicon.svg stable, square, explicitly 64×64, declared with sizes="any" and allowed for Googlebot-Image. Photo filenames and generated redirects retain the prior migration. Future photos require explicit indexing review.
+
+Personal photo labels are exactly “Edwin George Shaji - 1” for the homepage and “Edwin George Shaji - 2” for About. Use these in image alt text and any corresponding image captions/metadata.
