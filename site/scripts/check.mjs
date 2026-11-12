@@ -77,7 +77,11 @@ for(const page of pages){
  assert.equal(pageSchema.url,url);
  const person=schema['@graph'].find(item=>item['@type']==='Person');
  assert.ok(person.name&&person.sameAs.includes('https://github.com/edwingeorgeshaji')&&person.sameAs.includes('https://www.linkedin.com/in/edwingeorgeshaji'));
- assert.equal(person.image,`${origin}/assets/edwin-george-shaji-2.webp`);
+ assert.equal(person.image,`${origin}/assets/${page==='index.html'?'edwin-george-shaji-1.webp':'edwin-george-shaji-2.webp'}`);
+ const website=schema['@graph'].find(item=>item['@type']==='WebSite');
+ assert.equal(website.name,'Edwin George Shaji');assert.equal(website.alternateName,'edwingeorgeshaji.com');
+ assert.equal(meta('og:site_name'),'Edwin George Shaji');
+ if(page==='index.html'){assert.equal(meta('og:image'),`${origin}/assets/edwin-george-shaji-1.webp`);assert.equal(pageSchema.primaryImageOfPage.contentUrl,meta('og:image'));assert.equal(pageSchema.mainEntity['@id'],person['@id']);}
  if(page==='about/index.html'){assert.equal(pageSchema['@type'],'ProfilePage');assert.equal(pageSchema.mainEntity['@id'],person['@id']);}else assert.equal(pageSchema['@type'],'WebPage');
  assert.ok(!html.includes('cozy-larch-9109'),'No previous production origin');
 }
@@ -88,13 +92,17 @@ assert.deepEqual(locations.sort(),canonicalUrls.sort(),'Sitemap covers exactly t
 const robots=await readFile(path.join(root,'robots.txt'),'utf8');
 assert.ok(robots.startsWith('User-agent: *\nAllow: /\n'));
 assert.ok(robots.includes('User-agent: Googlebot-Image\nDisallow: /\n'));
-const photoPaths=['/assets/edwin-george-shaji-1-480.webp','/assets/edwin-george-shaji-1.webp','/assets/edwin-george-shaji-2.webp'];
+const photoPaths=['/assets/edwin-george-shaji-1-480.webp','/assets/edwin-george-shaji-1.webp'];
 const imageRules=robots.split('User-agent: Googlebot-Image')[1];
-assert.deepEqual([...imageRules.matchAll(/^Allow: (.+)$/gm)].map(m=>m[1]),photoPaths);
+assert.deepEqual([...imageRules.matchAll(/^Allow: (.+)$/gm)].map(m=>m[1]),[...photoPaths,'/favicon.svg']);
 for(const photo of photoPaths)await access(path.join(root,photo));
-assert.ok(home.includes('<meta name="robots" content="max-image-preview:none">'));
+assert.ok(home.includes('<meta name="robots" content="max-image-preview:standard">'));
 assert.ok(home.includes('<meta name="description" content="Personal portfolio showcasing a collection of projects, creative experiments, technical explorations and achievements, bringing together ideas, innovation and technology in one place.">'));
-for(const page of pages){const html=await readFile(path.join(root,page),'utf8');assert.ok(!html.includes('noimageindex'));if(page!=='index.html')assert.ok(!html.includes('max-image-preview:none'));}
+for(const page of pages){const html=await readFile(path.join(root,page),'utf8');assert.ok(!html.includes('noimageindex'));if(page!=='index.html')assert.ok(!html.includes('max-image-preview:standard'));}
 for(const page of ['index.html','about/index.html']){const html=await readFile(path.join(root,page),'utf8');const photos=[...html.matchAll(/<img[^>]*src="\/assets\/edwin-[^>]+>/g)];assert.ok(photos.length);for(const [img] of photos)assert.match(img,/alt="Edwin George Shaji[^"]+"/);}
 assert.ok(robots.includes(`Sitemap: ${origin}/sitemap.xml`));
 console.log(`SEO passed: ${canonicalUrls.length} canonical URLs, sitemap coverage, unique metadata, social cards and JSON-LD.`);
+
+const favicon=await readFile(path.join(root,'favicon.svg'),'utf8');
+assert.match(favicon,/width="64" height="64" viewBox="0 0 64 64"/);
+assert.ok(home.includes('<link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any">'));
