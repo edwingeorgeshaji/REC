@@ -69,6 +69,8 @@ for(const page of pages){
  assert.equal(meta('og:description'),description);
  assert.equal(meta('twitter:description'),'Edwin George Shaji - R.E.C');
  assert.equal(meta('twitter:image'),`${origin}/assets/hero-social.png`);
+ assert.equal(meta('og:image'),meta('twitter:image'));
+ for(const key of ['og:image:alt','twitter:image:alt'])assert.equal(meta(key),'Edwin George Shaji’s portfolio hero with his name and navigation over lilies');
  assert.equal(meta('twitter:card'),'summary_large_image');
  for(const key of ['og:image','twitter:image']){const image=new URL(meta(key));assert.equal(image.origin,origin);await access(path.join(root,image.pathname));references.add(image.pathname.slice(1));}
  const schema=JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1]);
@@ -81,7 +83,7 @@ for(const page of pages){
  const website=schema['@graph'].find(item=>item['@type']==='WebSite');
  assert.equal(website.name,'Edwin George Shaji');assert.equal(website.alternateName,'edwingeorgeshaji.com');
  assert.equal(meta('og:site_name'),'Edwin George Shaji');
- if(page==='index.html'){assert.equal(meta('og:image'),`${origin}/assets/edwin-george-shaji-1.webp`);assert.equal(pageSchema.primaryImageOfPage.contentUrl,meta('og:image'));assert.equal(pageSchema.mainEntity['@id'],person['@id']);}
+ if(page==='index.html'){assert.equal(pageSchema.primaryImageOfPage.contentUrl,`${origin}/assets/edwin-george-shaji-1.webp`);assert.equal(pageSchema.mainEntity['@id'],person['@id']);}
  if(page==='about/index.html'){assert.equal(pageSchema['@type'],'ProfilePage');assert.equal(pageSchema.mainEntity['@id'],person['@id']);}else assert.equal(pageSchema['@type'],'WebPage');
  assert.ok(!html.includes('cozy-larch-9109'),'No previous production origin');
 }
