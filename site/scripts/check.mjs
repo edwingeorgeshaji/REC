@@ -64,10 +64,10 @@ for(const page of pages){
  if(page==='404.html'){assert.equal(meta('robots'),'noindex');assert.equal(canonicals.length,0);}
  else{assert.ok(!/noindex/i.test(html));assert.equal(canonicals.length,1);assert.equal(canonicals[0][1],url);canonicalUrls.push(url);}
  assert.equal(meta('og:url'),url);
- assert.equal(meta('og:title'),page==='index.html'?'Edwin George Shaji - R.E.C':title);
- assert.equal(meta('twitter:title'),page==='index.html'?'Edwin George Shaji - R.E.C':title);
- assert.equal(meta('og:description'),description);
- assert.equal(meta('twitter:description'),'Edwin George Shaji - R.E.C');
+ assert.equal(meta('og:title'),page==='index.html'?'Edwin':title);
+ assert.equal(meta('twitter:title'),page==='index.html'?'Edwin':title);
+ assert.equal(meta('og:description'),page==='index.html'?'Edwin George Shaji - Computer Science Student':description);
+ assert.equal(meta('twitter:description'),page==='index.html'?'Edwin George Shaji - Computer Science Student':'Edwin George Shaji - R.E.C');
  assert.equal(meta('twitter:image'),`${origin}/assets/hero-social.png`);
  assert.equal(meta('og:image'),meta('twitter:image'));
  for(const key of ['og:image:alt','twitter:image:alt'])assert.equal(meta(key),'Edwin George Shaji’s portfolio hero with his name and navigation over lilies');

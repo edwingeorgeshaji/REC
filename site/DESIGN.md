@@ -582,3 +582,5 @@ About uses ProfilePage mainEntity referencing the Person, with verified GitHub/L
 Keep /favicon.svg stable, square, explicitly 64×64, declared with sizes="any" and allowed for Googlebot-Image. Photo filenames and generated redirects retain the prior migration. Future photos require explicit indexing review.
 
 Personal photo labels are exactly “Edwin George Shaji - 1” for the homepage and “Edwin George Shaji - 2” for About. Use these in image alt text and any corresponding image captions/metadata.
+
+Homepage social-preview title is “Edwin” and its Open Graph/Twitter description is “Edwin George Shaji - Computer Science Student”. Keep the longer Google meta description unchanged, retain hero-social.png and summary_large_image. Platform rendering and caching determine the final card layout.
