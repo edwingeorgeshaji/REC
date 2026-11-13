@@ -100,7 +100,7 @@ const imageRules=robots.split('User-agent: Googlebot-Image')[1];
 assert.deepEqual([...imageRules.matchAll(/^Allow: (.+)$/gm)].map(m=>m[1]),[...photoPaths,'/favicon.svg','/favicon.png','/favicon.ico']);
 for(const photo of photoPaths)await access(path.join(root,photo));
 assert.ok(home.includes('<meta name="robots" content="max-image-preview:standard">'));
-assert.ok(home.includes('<meta name="description" content="Personal portfolio showcasing a collection of projects, creative experiments, technical explorations and achievements, bringing together ideas, innovation and technology in one place.">'));
+assert.ok(home.includes('<meta name="description" content="I am a Computer Science and Engineering student at Amal Jyothi College of Engineering, building projects in software, AI and quantum computing.">'));
 for(const page of pages){const html=await readFile(path.join(root,page),'utf8');assert.ok(!html.includes('noimageindex'));if(page!=='index.html')assert.ok(!html.includes('max-image-preview:standard'));}
 for(const page of ['index.html','about/index.html']){const html=await readFile(path.join(root,page),'utf8');const photos=[...html.matchAll(/<img[^>]*src="\/assets\/edwin-[^>]+>/g)];assert.ok(photos.length);for(const [img] of photos)assert.match(img,/alt="Edwin George Shaji[^"]+"/);}
 assert.ok(robots.includes(`Sitemap: ${origin}/sitemap.xml`));
@@ -111,10 +111,10 @@ assert.match(favicon,/width="64" height="64" viewBox="0 0 64 64"/);
 assert.ok(home.includes('<link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any">'));
 
 const png=await readFile(path.join(root,'favicon.png'));
-assert.equal(png.readUInt32BE(16),96);assert.equal(png.readUInt32BE(20),96);
+assert.equal(png.readUInt32BE(16),384);assert.equal(png.readUInt32BE(20),384);
 const ico=await readFile(path.join(root,'favicon.ico'));
 assert.equal(ico.readUInt16LE(2),1);assert.ok(ico.readUInt16LE(4)>=3);
-assert.ok(home.includes('href="/favicon.png" type="image/png" sizes="96x96"'));
+assert.ok(home.includes('href="/favicon.png" type="image/png" sizes="384x384"'));
 assert.ok(home.includes('class="gallery-controls wrap" data-nosnippet'));
 assert.ok(home.includes('data-pause-icon')&&home.includes('data-play-icon'));
 assert.ok(!/>Pause<|>Play</.test(home));
