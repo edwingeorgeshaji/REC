@@ -26,7 +26,7 @@ export function initGallery(reduced){
  let paused=false,visible=false,drag=null,frame=0,last=0,x=0,width=0,velocity=0,suppressClick=false,nudge=0;
  const draw=()=>{if(width){x=((x%width)+width)%width;track.style.transform=`translate3d(${-x}px,0,0)`;}};
  const measure=()=>{const progress=width?x/width:0;width=sets[0].getBoundingClientRect().width;x=progress*width;draw();};
- const label=()=>{pause.textContent=paused||reduced.matches?'Play':'Pause';pause.disabled=reduced.matches;pause.setAttribute('aria-label',`${paused||reduced.matches?'Play':'Pause'} certificate animation`);};
+ const label=()=>{pause.querySelector('[data-play-icon]').toggleAttribute('hidden',!(paused||reduced.matches));pause.querySelector('[data-pause-icon]').toggleAttribute('hidden',paused||reduced.matches);pause.disabled=reduced.matches;pause.setAttribute('aria-label',`${paused||reduced.matches?'Play':'Pause'} certificate animation`);};
  function tick(time){frame=0;if(!visible||document.hidden||reduced.matches){last=0;return;}const dt=last?Math.min(time-last,40):16.67;last=time;if(!drag&&(!paused||Math.abs(nudge)>.1)){const move=nudge*(1-Math.exp(-dt/100));nudge-=move;x+=move+(paused?0:dt*.08+velocity*(dt/16.67));velocity*=Math.pow(.975,dt/16.67);if(Math.abs(velocity)<.01)velocity=0;draw();}if(!paused||drag||Math.abs(nudge)>.1)frame=requestAnimationFrame(tick);}
  const start=()=>{if(!frame){last=0;frame=requestAnimationFrame(tick);}};
  const step=direction=>{velocity=0;if(reduced.matches){gallery.scrollBy({left:direction*gallery.clientWidth*.35,behavior:'instant'});return;}nudge+=direction*gallery.clientWidth*.35;start();};

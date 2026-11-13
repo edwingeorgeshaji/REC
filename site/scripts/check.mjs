@@ -96,7 +96,7 @@ assert.ok(robots.startsWith('User-agent: *\nAllow: /\n'));
 assert.ok(robots.includes('User-agent: Googlebot-Image\nDisallow: /\n'));
 const photoPaths=['/assets/edwin-george-shaji-1-480.webp','/assets/edwin-george-shaji-1.webp'];
 const imageRules=robots.split('User-agent: Googlebot-Image')[1];
-assert.deepEqual([...imageRules.matchAll(/^Allow: (.+)$/gm)].map(m=>m[1]),[...photoPaths,'/favicon.svg']);
+assert.deepEqual([...imageRules.matchAll(/^Allow: (.+)$/gm)].map(m=>m[1]),[...photoPaths,'/favicon.svg','/favicon.png','/favicon.ico']);
 for(const photo of photoPaths)await access(path.join(root,photo));
 assert.ok(home.includes('<meta name="robots" content="max-image-preview:standard">'));
 assert.ok(home.includes('<meta name="description" content="Personal portfolio showcasing a collection of projects, creative experiments, technical explorations and achievements, bringing together ideas, innovation and technology in one place.">'));
@@ -108,3 +108,12 @@ console.log(`SEO passed: ${canonicalUrls.length} canonical URLs, sitemap coverag
 const favicon=await readFile(path.join(root,'favicon.svg'),'utf8');
 assert.match(favicon,/width="64" height="64" viewBox="0 0 64 64"/);
 assert.ok(home.includes('<link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any">'));
+
+const png=await readFile(path.join(root,'favicon.png'));
+assert.equal(png.readUInt32BE(16),96);assert.equal(png.readUInt32BE(20),96);
+const ico=await readFile(path.join(root,'favicon.ico'));
+assert.equal(ico.readUInt16LE(2),1);assert.ok(ico.readUInt16LE(4)>=3);
+assert.ok(home.includes('href="/favicon.png" type="image/png" sizes="96x96"'));
+assert.ok(home.includes('class="gallery-controls wrap" data-nosnippet'));
+assert.ok(home.includes('data-pause-icon')&&home.includes('data-play-icon'));
+assert.ok(!/>Pause<|>Play</.test(home));

@@ -584,3 +584,5 @@ Keep /favicon.svg stable, square, explicitly 64×64, declared with sizes="any" a
 Personal photo labels are exactly “Edwin George Shaji - 1” for the homepage and “Edwin George Shaji - 2” for About. Use these in image alt text and any corresponding image captions/metadata.
 
 Homepage social-preview title is “Edwin” and its Open Graph/Twitter description is “Edwin George Shaji - Computer Science Student”. Keep the longer Google meta description unchanged, retain hero-social.png and summary_large_image. Platform rendering and caching determine the final card layout.
+
+Favicon formats preserve the original artwork: SVG, 96×96 PNG, and ICO with 16/32/48/96px sizes. Allow these three exact favicon paths for Googlebot-Image alongside the main portrait variants. Certificate controls use pause/play SVGs with dynamic accessible action labels, no visible standalone Pause/Play text. Their wrapper uses data-nosnippet; native keyboard button activation and reduced-motion behaviour remain unchanged.
