@@ -567,7 +567,7 @@ A continuous 20-second accent-colour meadow with one larger striped bee at full 
 
 ## Search metadata
 
-Production origin is https://edwingeorgeshaji.com. All indexable pages have self-referencing canonicals, unique titles/descriptions, Open Graph and Twitter large-image cards. Sitemap lists all generated public pages except the noindex 404; certificate anchors are not separate pages. Person, WebSite and WebPage JSON-LD share stable production IDs. Keep hero/about primary images prioritised; defer below-fold galleries, certificates and logos. Hosting should redirect www to the apex domain. Validate generated SEO metadata with npm run check after builds.
+Production origin is https://edwingeorgeshaji.com. All normal pages have self-referencing canonicals, unique titles/descriptions, Open Graph and Twitter large-image cards. Sitemap lists only the indexable homepage; all standalone subpages use noindex, follow and preserve self-referencing canonicals; certificate anchors are not separate pages. Person, WebSite and WebPage JSON-LD share stable production IDs. Keep hero/about primary images prioritised; defer below-fold galleries, certificates and logos. Hosting should redirect www to the apex domain. Validate generated SEO metadata with npm run check after builds.
 
 Twitter cards use the actual 1200×630 hero screenshot at /assets/hero-social.png, with description “Edwin George Shaji - R.E.C” and that same title on the homepage. Other pages retain their specific Twitter titles. Open Graph uses /assets/hero-social.png across all pages. Twitter cards retain the hero screenshot and branding; SEO descriptions and other page titles remain page-specific.
 
@@ -586,3 +586,5 @@ Personal photo labels are exactly “Edwin George Shaji - 1” for the homepage 
 Homepage social-preview title is “Edwin” and its Open Graph/Twitter description is “Edwin George Shaji - Computer Science Student”. Keep the longer Google meta description unchanged, retain hero-social.png and summary_large_image. Platform rendering and caching determine the final card layout.
 
 Favicon formats preserve the original artwork: SVG, 96×96 PNG, and ICO with 16/32/48/96px sizes. Allow these three exact favicon paths for Googlebot-Image alongside both About portraits and the main portrait responsive variant. Certificate controls use pause/play SVGs with dynamic accessible action labels, no visible standalone Pause/Play text. Their wrapper uses data-nosnippet; native keyboard button activation and reduced-motion behaviour remain unchanged.
+
+Homepage-only search strategy: retain homepage metadata unchanged. Every standalone subpage, including Toolkit and individual projects, uses exactly one robots tag with noindex, follow. Keep each normal subpage canonical; 404 retains no canonical. Keep general robots.txt crawling allowed, image rules unchanged, all visitor routes and internal links functional, and list only / in the sitemap.

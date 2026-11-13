@@ -61,8 +61,9 @@ for(const page of pages){
  assert.ok(description&&!descriptions.has(description),`Unique description: ${page}`);descriptions.add(description);
  const url=origin+'/'+page.replace(/index\.html$/,'');
  const canonicals=[...html.matchAll(/<link rel="canonical" href="([^"]+)"/g)];
- if(page==='404.html'){assert.equal(meta('robots'),'noindex');assert.equal(canonicals.length,0);}
- else{assert.ok(!/noindex/i.test(html));assert.equal(canonicals.length,1);assert.equal(canonicals[0][1],url);canonicalUrls.push(url);}
+ assert.equal((html.match(/<meta name="robots"/g)||[]).length,1);
+ if(page==='404.html'){assert.equal(meta('robots'),'noindex, follow');assert.equal(canonicals.length,0);}
+ else{assert.equal(canonicals.length,1);assert.equal(canonicals[0][1],url);if(page==='index.html'){assert.ok(!/noindex/i.test(html));canonicalUrls.push(url);}else assert.equal(meta('robots'),'noindex, follow');}
  assert.equal(meta('og:url'),url);
  assert.equal(meta('og:title'),page==='index.html'?'Edwin':title);
  assert.equal(meta('twitter:title'),page==='index.html'?'Edwin':title);

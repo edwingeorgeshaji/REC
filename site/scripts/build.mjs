@@ -28,7 +28,7 @@ for(const project of projects) {
   await writeFile(path.join(directory,'index.html'),projectPage(project));
 }
 await writeFile(path.join(dist,'404.html'),notFoundPage());
-const urls=['/','/projects/','/experience/','/certificates/','/about/','/toolkit/',...projects.map(p=>`/projects/${p.slug}/`)];
+const urls=['/'];
 await writeFile(path.join(dist,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.map(url=>`<url><loc>${profile.siteUrl}${url}</loc></url>`).join('')}</urlset>`);
 await writeFile(path.join(dist,'robots.txt'),`User-agent: *\nAllow: /\n\n# Only the two About portraits (including responsive sizes) and favicons are crawlable by Googlebot-Image.\nUser-agent: Googlebot-Image\nDisallow: /\nAllow: /assets/edwin-george-shaji-1-480.webp\nAllow: /assets/edwin-george-shaji-1.webp\nAllow: /assets/edwin-george-shaji-2.webp\nAllow: /favicon.svg\nAllow: /favicon.png\nAllow: /favicon.ico\n\nSitemap: ${profile.siteUrl}/sitemap.xml\n`);
 await writeFile(path.join(dist,'_headers'),'/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: SAMEORIGIN\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n/resume.pdf\n  Content-Disposition: inline; filename="Resume - Edwin George Shaji.pdf"\n');
