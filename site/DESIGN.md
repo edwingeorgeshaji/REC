@@ -598,3 +598,5 @@ Googlebot also excludes /assets/ except both portraits, the responsive variant a
 The Google Student Ambassador Program 2026 Semester 1 completion certificate appears immediately before Director's Honours Award - Semester 4 in the certificate collection; the homepage marquee follows this same ordering while excluding portrait certificates. Its landscape preview uses the existing certificate rendering; the ambassadorship editorial group precedes honours.
 
 Gemini Student Ambassador experience runs April–November 2026 (display: Apr 2026 - Nov 2026; end: 2026-11). Keep the homepage and Experience subpage sourced from the same record.
+
+Header rollback: navigation.js restored from b6c02e4 (before controls-ready restoration). Header updates directly on pageshow, with no delayed controls-ready gate or matching hero-control visibility rule. All unrelated site updates remain intact.

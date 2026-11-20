@@ -296,7 +296,7 @@ html:has(.experience-record:target){scroll-behavior:auto}
 @media(prefers-reduced-motion:reduce){[data-marquee]{overflow-x:auto;touch-action:auto}.certificate-drag-track{transform:none!important;will-change:auto}.certificate-drag-track .marquee-set[aria-hidden=true]{display:none}}
 .marquee-set>a{display:block;flex:none;border-radius:14px;cursor:grab}.marquee-set>a:focus-visible{outline-offset:-4px}.marquee-set>a img{display:block}
 
-.site-header:not(.controls-ready) .hero-control{visibility:hidden;opacity:0;transition:none}
+
 
 /* Project previews fill their frames; enlarged figures remain fully readable. */
 .project-gallery[data-project-figures] .project-image-open img{object-fit:cover}

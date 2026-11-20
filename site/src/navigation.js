@@ -87,13 +87,6 @@ export function initNavigation(){
   });
   new ResizeObserver(()=>update(true)).observe(nav);
   document.fonts.ready.then(()=>update(true));
-  const restoreHeader=()=>{
-    header.classList.remove('controls-ready');
-    update(true);
-    requestAnimationFrame(()=>requestAnimationFrame(()=>{update(true);header.classList.add('controls-ready');}));
-  };
-  window.addEventListener('pagehide',()=>header.classList.remove('controls-ready'));
-  window.addEventListener('pageshow',restoreHeader);
-  if(document.readyState==='complete')restoreHeader();
+  window.addEventListener('pageshow',()=>update(true));
   update(true);
 }
