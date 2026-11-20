@@ -13,13 +13,6 @@ if(experienceTarget && performance.getEntriesByType('navigation')[0]?.type!=='ba
   await document.fonts.ready;
   experienceTarget.scrollIntoView({behavior:'instant',block:'start'});
 }
-// Cross-page fragment navigation is restoration, not an in-page scroll animation.
-// Resolve its destination before the header selects its hero/section palette.
-if(document.querySelector('[data-header]')&&location.hash&&performance.getEntriesByType('navigation')[0]?.type!=='back_forward'){
-  let destination;
-  try{destination=document.getElementById(decodeURIComponent(location.hash.slice(1)));}catch{}
-  if(destination)destination.scrollIntoView({behavior:'instant',block:'start'});
-}
 initNavigation();
 initMotion(reduced);
 initGallery(reduced);

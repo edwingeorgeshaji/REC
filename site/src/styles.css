@@ -377,8 +377,3 @@ html:has(.experience-record:target){scroll-behavior:auto}
  .lightbox-status{font-variant-numeric:tabular-nums}
  .inline-image-controls svg,.lightbox-panel button svg{transition:none;flex:none}
 
-
-/* Settle initial/restored header geometry and palette before revealing navigation. */
-html.booting{scroll-behavior:auto}
-.site-header:not(.controls-ready) .navigation,
-.site-header:not(.controls-ready) .navigation *{transition:none!important}
