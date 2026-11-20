@@ -18,7 +18,7 @@ if(experienceTarget && performance.getEntriesByType('navigation')[0]?.type!=='ba
 if(document.querySelector('[data-header]')&&location.hash&&performance.getEntriesByType('navigation')[0]?.type!=='back_forward'){
   let destination;
   try{destination=document.getElementById(decodeURIComponent(location.hash.slice(1)));}catch{}
-  if(destination){await document.fonts.ready;destination.scrollIntoView({behavior:'instant',block:'start'});}
+  if(destination)destination.scrollIntoView({behavior:'instant',block:'start'});
 }
 initNavigation();
 initMotion(reduced);

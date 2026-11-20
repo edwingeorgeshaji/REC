@@ -599,4 +599,4 @@ The Google Student Ambassador Program 2026 Semester 1 completion certificate app
 
 Gemini Student Ambassador experience runs April–November 2026 (display: Apr 2026 - Nov 2026; end: 2026-11). Keep the homepage and Experience subpage sourced from the same record.
 
-Homepage return navigation resolves incoming section fragments instantly after fonts settle, before header initialization. While controls-ready is absent, navigation is hidden and its transitions suppressed so initial/restored palette and selection geometry never animate from stale hero state. Normal in-page navigation retains smooth scrolling and indicator animation.
+Homepage return navigation resolves incoming section fragments instantly without waiting for fonts, before header initialization. While controls-ready is absent, navigation remains visible and its transitions are suppressed so initial/restored palette and selection geometry never animate from stale hero state. Normal in-page navigation retains smooth scrolling and indicator animation.
