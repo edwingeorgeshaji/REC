@@ -671,10 +671,10 @@ const experienceRecords = [
     "roles": [
       {
         "title": "Gemini Student Ambassador",
-        "date": "Apr 2026 - Oct 2026",
+        "date": "Apr 2026 - Nov 2026",
         "current": false,
         "start": "2026-04",
-        "end": "2026-10"
+        "end": "2026-11"
       }
     ],
     "description": "Contributed to student outreach, Gemini AI awareness campaigns, workshops, and community engagement. The campus initiative is operated through Communique Marketing Solutions Pvt Ltd.",
