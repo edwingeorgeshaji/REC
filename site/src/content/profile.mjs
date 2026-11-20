@@ -229,6 +229,20 @@ export const profile = {
       "published": true
     },
     {
+      "slug": "google-student-ambassador-semester-1",
+      "title": "Google Student Ambassador Program 2026 - Semester 1",
+      "issuer": "Google Student Ambassador Program / Communique",
+      "group": "ambassadorship",
+      "priority": 10,
+      "type": "Program completion",
+      "date": "4 November 2026",
+      "description": "Successfully completed Semester 1 as a Google Student Ambassador.",
+      "image": "/assets/certificates/google-student-ambassador-semester-1/certificate.png",
+      "width": 1800,
+      "height": 1299,
+      "published": true
+    },
+    {
       "slug": "infosys-paperiq-internship",
       "title": "Infosys Springboard Internship 6.0 - PaperIQ",
       "issuer": "Infosys Springboard",
