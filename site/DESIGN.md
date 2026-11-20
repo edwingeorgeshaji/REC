@@ -600,3 +600,5 @@ The Google Student Ambassador Program 2026 Semester 1 completion certificate app
 Gemini Student Ambassador experience runs April–November 2026 (display: Apr 2026 - Nov 2026; end: 2026-11). Keep the homepage and Experience subpage sourced from the same record.
 
 Header rollback: navigation.js restored from b6c02e4 (before controls-ready restoration). Header updates directly on pageshow, with no delayed controls-ready gate or matching hero-control visibility rule. All unrelated site updates remain intact.
+
+User-verified header fix (20 November 2026): homepage app.js uses blocking="render", matching existing collection-page initialization. This prevents the static over-hero header from being painted before navigation initializes at the restored scroll position. No header visibility or scrolling overrides. Delayed-module browser Back reproduction: 108 incorrect-state frames before, zero after; restored project position unchanged. Confirmed fixed by the user in localhost testing.
