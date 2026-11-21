@@ -3,8 +3,8 @@
 </p>
 <h1 align="center">Edwin George Shaji - Portfolio</h1>
 <p align="center">
-  My personal portfolio, built with HTML, CSS, vanilla JavaScript, and a Node.js static site generator.
-  A home for my projects, experience, and explorations in software, AI, and quantum computing.
+  My personal portfolio, built with HTML, CSS, vanilla JavaScript and a Node.js static site generator.
+  A home for my projects, experience, and explorations in software, AI and quantum computing.
 </p>
 <p align="center">
   ♪ <a href="https://edwingeorgeshaji.com">Visit the website</a> ♪
