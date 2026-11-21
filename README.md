@@ -67,6 +67,8 @@ Deploy the contents of `site/dist/` to a static host. For Git-based hosting, set
 
 For content editing and design guidance, see [site/README.md](site/README.md) and [site/DESIGN.md](site/DESIGN.md).
 
+---
+
  <div align='center'>
   
   Bulit by,<strong> [R.E.C](https://github.com/edwingeorgeshaji) </strong>  <i>(ifykyk).</i>
