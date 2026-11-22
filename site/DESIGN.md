@@ -1,6 +1,6 @@
 # Edwin George Shaji — design and maintenance specification
 
-Last reconciled with the implementation: 29 October 2026.
+Last reconciled with the implementation and owner decisions: 22 November 2026.
 
 ## Read this first: handoff to another model or platform
 
@@ -155,18 +155,19 @@ Ordering is explicit editorial metadata, shared by the collection and homepage m
 The `certificateGroups` array defines this order:
 1. `awards`: competition wins first, then institutional selections. Innovare 2026 First Place precedes IDEATHON 2026 Second Place, then SIH institutional selection. Do not describe selection or participation as a national win.
 2. `nptel`: keep Elite credentials together; the 12-week Java algorithms course precedes the 8-week DBMS course.
-3. `honours`: Director's honours before Principal's honours; keep semester credentials separate.
-4. `internships`: completion certificates, including Infosys PaperIQ and NeST Data Science. This category takes precedence over issuer grouping.
-5. `ibm`: Quantum Excellence, Basics of Quantum Information, AI Fundamentals, Getting Started with AI.
-6. `aws`: Braket Application Development and Braket Getting Started together, then Cloud Foundations (20 hours), Generative AI Foundations and database introduction.
-7. `infosys`: other Infosys course completions together.
-8. `oracle`, `google`, `kaggle`, `anthropic`, `intel`, `dubai`, `hackerrank`, `nasa`, `other`: keep each issuer's related credentials adjacent. NASA participation certificates stay together and are not winner awards.
+3. `ambassadorship`: Google Student Ambassador Program 2026 - Semester 1 immediately before Director's Honours Award - Semester 4.
+4. `honours`: Director's honours before Principal's honours; keep semester credentials separate.
+5. `internships`: completion certificates, including Infosys PaperIQ and NeST Data Science. This category takes precedence over issuer grouping.
+6. `ibm`: Quantum Excellence, Basics of Quantum Information, AI Fundamentals, Getting Started with AI.
+7. `aws`: Braket Application Development and Braket Getting Started together, then Cloud Foundations (20 hours), Generative AI Foundations and database introduction.
+8. `infosys`: other Infosys course completions together.
+9. `oracle`, `google`, `quantumx`, `kaggle`, `anthropic`, `intel`, `dubai`, `hackerrank`, `nasa`, `other`: keep each issuer's related credentials adjacent. NASA participation certificates stay together and are not winner awards.
 
 Add a new issuer group to `certificateGroups` deliberately when needed. Unknown groups fall last; omitted priority defaults to 100. Within each group, use verified level, course depth and related subject sequence to choose priority; never invent prestige, scores or completion dates. Certificate search filters this order without relevance re-ranking; project search retains its existing relevance behavior.
 
 Keep a stable slug while changing title, image or position. Homepage links and collection IDs are generated from the same normalized record. Hide with `published: false` or remove the record when asked; clean up unused public assets without destroying originals. Placeholder filenames use original array indices, so let the build generate them rather than manually renaming placeholder SVGs.
 
-The catalogue currently contains 32 records, all with real previews. The Freedom with AI Masterclass placeholder has been removed. Innovare uses the replacement high-resolution Certificate of Appreciation supplied on 29 October 2026. Intel AI Appreciate precedes AI Aware within the Intel group; they are distinct stages. The duplicated Intel AI Aware attachment is represented once. Existing IDEATHON event photos remain unpublished; do not restore a gallery from retained metadata.
+The catalogue currently contains 34 published records with real previews: 30 landscape and 4 portrait. Counts are a snapshot; derive current totals from certificate.mjs after content changes. Quantum Hack Day Kochi is in the quantumx group immediately before Kaggle. The Freedom with AI Masterclass placeholder has been removed. Innovare uses the replacement high-resolution Certificate of Appreciation supplied on 29 October 2026. Intel AI Appreciate precedes AI Aware within the Intel group; they are distinct stages. The duplicated Intel AI Aware attachment is represented once. Existing IDEATHON event photos remain unpublished; do not restore a gallery from retained metadata.
 
 ### PDF and image preview parity
 
@@ -393,7 +394,7 @@ Experience remains ordered by ongoing/recent records. Organisation names on home
 
 Toolkit icon discs on its subpage are #D9E4D2 only in light mode. Keep the dark-mode treatment. Mobile home-toolkit labels are omitted; decorative outer rings are removed while intrinsic icon backgrounds remain. Keep Linux connected to the line artwork and the Explore my toolkit action below the mobile illustration. Do not reintroduce the narrow/clipped mobile animation.
 
-Contact email/social links animate only their arrows; do not restore text shifts or oversized arrows. The primary email is larger than social links on mobile. The copy button uses ink background and paper text with an ink border, ensuring contrast in both themes. Its mobile dimensions are 92 × 36px with 10px type and 14px top margin.
+Contact email/social links animate only their arrows; do not restore text shifts or oversized arrows. The primary email is larger than social links on mobile. The copy button uses ink background and paper text with an ink border, ensuring contrast in both themes. Its mobile dimensions are 105 × 36px with 10px type and no top margin. Keep it to the right of the address on the same flex row (margin-left:auto); its idle state includes the copy icon. The email address uses mailto:hello@edwingeorgeshaji.com up to 600px; desktop retains the Gmail compose link.
 
 ### Theme, navigation and load stability fixes
 
@@ -401,7 +402,7 @@ Theme state is shared across main and subpages in both directions. Subpage toggl
 
 Show the central home section selector only at widths where it can share a row with the hero controls. Do not restore tablet wrapping or a mobile hamburger. Preserve the existing .89 compact scale and the shrink timing near the About transition.
 
-Prevent resume/theme-toggle flashes when returning from a subpage at a non-hero scroll position. navigation.js removes controls-ready on pagehide, recalculates header state on restoration, then exposes controls after the scheduled frames. CSS keeps hero controls hidden without transitions until ready. Test browser Back as well as direct loading.
+Prevent the static over-hero header from painting over a restored non-hero section. The homepage app.js module has blocking="render" in layout.mjs, as do the existing Experience, Projects and Certificates collection routes. Navigation initializes before first paint and updates directly on pageshow. This is the owner-confirmed fix in commit 31d36ee. Do not reintroduce controls-ready/selection-ready visibility gates, navigation-restored scroll overrides, extra font waits, or forced homepage fragment scrolling: these experiments were rejected. Keep native history restoration and existing smooth in-page navigation. Verify browser Back and subpage links in both themes; delay navigation.js in testing to expose initialization races. Render blocking can delay the whole first paint on slow connections; it must not hide only the header or make it pop in separately.
 
 Preserve clean same-page URLs while retaining section scrolling, active navigation, legacy fragment entry, and browser history functionality. Do not remove fragments from unrelated external URLs or sacrifice navigation just to hide a hash.
 
@@ -482,7 +483,7 @@ These timing values were checked against the current source. This documentation 
 - **Certificate marquee:** 80px/s base movement, time delta capped at 40ms, inertia decay .975 per nominal 16.67ms frame. Drag threshold is 6px; pointer capture is delayed until that threshold. Velocity is capped at ±60. Pause, visibility and reduced motion govern movement; keyboard/control stepping is 35% of the strip viewport. Click suppression must not block an ordinary certificate link click.
 - **Theme reveal:** 550ms circular clip-path reveal with cubic-bezier(.22,.75,.18,1). On subpages the origin is the toggle centre at the top right. On home its vertical origin is the start of the hero blending gradient, clamped to the viewport; the photograph itself stays unchanged. Pending rapid theme requests are serialized. Without View Transitions or with reduced motion, use the fallback theme update. State is session-backed and refreshed on return.
 - **Footer handwriting:** Derathea-derived SVG strokes, 1900ms weighted writing schedule, linear stroke reveals, and 22% overlap between stroke handoffs. Weights use max(12, sqrt(path length)) to balance small marks and flourishes. Each letter changes accent → ink over 300ms after its strokes finish. All animations share a start time to avoid stagger drift. Begin only when the signature bottom is at least 16px inside the viewport, not at its first visible edge. Reset after fully leaving the viewport; reduced motion shows completed ink-coloured lettering. Preserve the existing thicker outlines and masks, and the name's scroll-to-hero link.
-- **Header return and shrink:** controls-ready gates hero controls until restored scroll geometry is evaluated. Preserve .89 compact scaling, delayed shrink near the About boundary, and no wrapped central navigation on narrow screens.
+- **Header return and shrink:** Homepage render-blocking initialization resolves header state before first paint; no controls-ready visibility gate. Preserve .89 compact scaling, delayed shrink near the About boundary, and no wrapped central navigation on narrow screens.
 - **Existing shared effects:** retain portrait tilt/sheen, content reveals, toolkit scroll/static mobile variants, shared discover-button fills, company/institution link movement, and contact arrow-only hover. Their geometry is specified in the page sections above; use the live CSS/browser modules for implementation details.
 
 ## Shared motion and interaction contracts
@@ -569,13 +570,13 @@ A continuous 20-second accent-colour meadow with one larger striped bee at full 
 
 Production origin is https://edwingeorgeshaji.com. All normal pages have self-referencing canonicals, unique titles/descriptions, Open Graph and Twitter large-image cards. Sitemap lists only the indexable homepage; all standalone subpages use noindex, follow and preserve self-referencing canonicals; certificate anchors are not separate pages. Person, WebSite and WebPage JSON-LD share stable production IDs. Keep hero/about primary images prioritised; defer below-fold galleries, certificates and logos. Hosting should redirect www to the apex domain. Validate generated SEO metadata with npm run check after builds.
 
-Twitter cards use the actual 1200×630 hero screenshot at /assets/hero-social.png, with description “Edwin George Shaji - R.E.C” and that same title on the homepage. Other pages retain their specific Twitter titles. Open Graph uses /assets/hero-social.png across all pages. Twitter cards retain the hero screenshot and branding; SEO descriptions and other page titles remain page-specific.
+Open Graph and Twitter use /assets/hero-social.png (1200×630) across all pages; twitter:card is summary_large_image. Homepage social title is “Edwin” and social description is “Edwin George Shaji - Computer Science Student”. Other pages use their page-specific social titles; their Twitter description is “Edwin George Shaji - R.E.C”, while Open Graph descriptions are page-specific. Both image alt texts describe the hero artwork with the name and navigation over lilies. These social values intentionally differ from the SEO title/description.
 
 ## Google image indexing
 
 Homepage uses max-image-preview:standard and the owner-supplied portfolio description. Its Person image and WebPage primaryImageOfPage point to /assets/edwin-george-shaji-1.webp. Open Graph and Twitter image tags instead use /assets/hero-social.png with matching artwork descriptions. WebSite name is Edwin George Shaji, alternateName is edwingeorgeshaji.com; og:site_name matches the name. The homepage is the Person's mainEntityOfPage, and homepage WebPage mainEntity references that Person.
 
-General crawling remains allowed. Googlebot-Image is denied all paths except /assets/edwin-george-shaji-1-480.webp, /assets/edwin-george-shaji-1.webp /assets/edwin-george-shaji-2.webp and the SVG/PNG/ICO favicons. These are the two About portraits, including the homepage responsive variant, plus search favicons. About retains edwin-george-shaji-2.webp in HTML and Person/ProfilePage data, and is eligible for Google Images. Certificates, project imagery, logos, backgrounds and social-card screenshots remain excluded. No page-level noimageindex; preserve descriptive portrait alt text and context-menu/drag protection.
+Pages remain crawlable. Googlebot additionally disallows /assets/ with portrait and legacy-portrait exceptions (see below). Googlebot-Image is denied all paths except /assets/edwin-george-shaji-1-480.webp, /assets/edwin-george-shaji-1.webp /assets/edwin-george-shaji-2.webp and the SVG/PNG/ICO favicons, plus the three legacy portrait redirect URLs listed below. These are the two About portraits, including the homepage responsive variant, plus search favicons. About retains edwin-george-shaji-2.webp in HTML and Person/ProfilePage data. The image URL is allowed, but About itself is noindex; do not promise image indexing or discovery from a noindexed landing page. Certificates, project imagery, logos, backgrounds and social-card screenshots remain excluded. No page-level noimageindex; preserve descriptive portrait alt text and context-menu/drag protection.
 
 About uses ProfilePage mainEntity referencing the Person, with verified GitHub/LinkedIn sameAs. Contact is /#contact; achievements are within /certificates/. Google chooses thumbnails, rankings and sitelinks; preferred metadata cannot guarantee a result.
 
@@ -599,6 +600,15 @@ The Google Student Ambassador Program 2026 Semester 1 completion certificate app
 
 Gemini Student Ambassador experience runs April–November 2026 (display: Apr 2026 - Nov 2026; end: 2026-11). Keep the homepage and Experience subpage sourced from the same record.
 
-Header rollback: navigation.js restored from b6c02e4 (before controls-ready restoration). Header updates directly on pageshow, with no delayed controls-ready gate or matching hero-control visibility rule. All unrelated site updates remain intact.
 
-User-verified header fix (20 November 2026): homepage app.js uses blocking="render", matching existing collection-page initialization. This prevents the static over-hero header from being painted before navigation initializes at the restored scroll position. No header visibility or scrolling overrides. Delayed-module browser Back reproduction: 108 incorrect-state frames before, zero after; restored project position unchanged. Confirmed fixed by the user in localhost testing.
+## Handoff status, approvals and diagnostic limits
+
+- Current source of truth is the implementation plus this document. The confirmed header fix is documented under Theme, navigation and load stability fixes; earlier failed experiments are not pending work.
+- Local working site: `C:/D/Code/Personal/edwingeorgeshaji.com/site`. The GitHub checkout used in this session is `.artifacts/rec-mobile-update` under the workspace, with its site in `site/`. Verify both locations and git status before editing; mirror only intended source/assets, never replace whole directories blindly.
+- Git remote: https://github.com/edwingeorgeshaji/REC.git. Local checkout branch has been `update-mobile-layout`; accepted changes were pushed using `HEAD:martin`. Check actual branch/remotes before future pushes. Do not push to a guessed default branch. A pre-existing projects.mjs line-ending-only working-tree change has been left unstaged; do not include unrelated changes.
+- Latest owner boundary: investigation is allowed, but file changes need approval. An explicit request to update a file (including this documentation audit) authorizes that scoped edit. Do not infer permission to redesign favicons, change indexing strategy or deploy from a diagnostic request. When the owner asks for local testing before a push, wait for their confirmation. Historical automatic-push permission is not a reason to bypass a newer restriction.
+- Confirmed current counts: 7 projects, 6 experience records, 34 published certificates; generated build has 14 HTML pages. Source data remains authoritative as new content is added.
+- Bing's 22 November report flags 70 empty alt values, not 70 absent attributes: 60 aria-hidden marquee duplicates, 9 redundant technology logos, and the decorative hero. Keep alt="" for decorative/redundant images; the first certificate set and meaningful images have descriptions. Do not add repetitive text solely to clear an automated warning. This report does not prove indexing was rejected.
+- Owner reports a wider-looking green favicon background specifically in desktop Google results; mobile and other engines look normal. This remains an external display concern, not a confirmed source defect. Live formats and historical flower paths were checked; no artwork proportion change was found. One inspected Google result used a 32×32 image displayed at 18×18 inside Google's own white circular frame. Its sampled green bounds matched the source at that size. Other supplied screenshots showed slightly non-square framing too; do not dismiss the report or claim a cause is proven. No favicon change was approved for this issue. Preserve the existing rounded artwork, all three formats and stable URLs; do not add a speculative Google-only icon, narrow the artwork or promise a cache reset.
+- Search Console screenshots confirmed the homepage indexed and About's live noindex detected; the stored About result was older. Temporary removal requests are managed in Search Console, not the repository. The owner said they were canceling those requests, but did not authorize removing subpage noindex. Keep homepage-only indexing until explicitly changed. Do not claim external requests were canceled or submitted without observing that action.
+- Google-specific image restrictions do not establish the same policy for Bing, other engines or AI crawlers. noindex is a search directive, not access control or a ban on AI training. Right-click protection likewise does not make public images private.
