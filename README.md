@@ -3,8 +3,8 @@
 </p>
 <h1 align="center">Edwin George Shaji - Portfolio</h1>
 <p align="center">
-  My personal portfolio, built with HTML, CSS, vanilla JavaScript, and a Node.js static site generator.
-  A home for my projects, experience, and explorations in software, AI, and quantum computing.
+  My personal portfolio, built with HTML, CSS, vanilla JavaScript and a Node.js static site generator.
+  A home for my projects, experience, and explorations in software, AI and quantum computing.
 </p>
 <p align="center">
   ♪ <a href="https://edwingeorgeshaji.com">Visit the website</a> ♪
@@ -66,3 +66,11 @@ Deploy the contents of `site/dist/` to a static host. For Git-based hosting, set
 | Borders | ![#354b3c](https://placehold.co/15/354b3c/354b3c.png) `#354b3c` | ![#b6c8af](https://placehold.co/15/b6c8af/b6c8af.png) `#b6c8af` |
 
 For content editing and design guidance, see [site/README.md](site/README.md) and [site/DESIGN.md](site/DESIGN.md).
+
+---
+
+ <div align='center'>
+  
+  Bulit by,<strong> [R.E.C](https://github.com/edwingeorgeshaji) </strong>  <i>(ifykyk).</i>
+ </div>
+
