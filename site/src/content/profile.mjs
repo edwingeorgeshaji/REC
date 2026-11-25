@@ -33,6 +33,20 @@ export const profile = {
   ],
   "certificates": [
     {
+      "slug": "spicelink-i2u-funding",
+      "title": "SpiceLink - I²U Project Funding",
+      "issuer": "Amal Jyothi College of Engineering",
+      "group": "awards",
+      "priority": 0,
+      "type": "Funding selection",
+      "date": null,
+      "description": "Selected for ₹15,000 INR in funding following the Phase-II evaluation of the Innovation Ideas Unleashed (I²U) 2025 Project Contest for SpiceLink: Smart Cardamom Farming with AI Monitoring & Blockchain Traceability.",
+      "image": "/assets/certificates/spicelink-i2u-funding/certificate.png",
+      "width": 1800,
+      "height": 1272,
+      "published": true
+    },
+    {
       "slug": "quantum-hack-day-kochi-2026",
       "title": "Qiskit Fall Fest 2026 - Quantum Hack Day Kochi",
       "issuer": "IBM Quantum · QuantumX",
