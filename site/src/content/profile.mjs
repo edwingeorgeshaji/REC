@@ -244,7 +244,7 @@ export const profile = {
     },
     {
       "slug": "google-student-ambassador-semester-1",
-      "title": "Google Student Ambassador Program 2026 - Semester 1",
+      "title": "Google Student Ambassador Program 2026",
       "issuer": "Google Student Ambassador Program / Communique",
       "group": "ambassadorship",
       "priority": 10,

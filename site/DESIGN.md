@@ -1,6 +1,6 @@
 # Edwin George Shaji — design and maintenance specification
 
-Last reconciled with the implementation and owner decisions: 25 November 2026.
+Last reconciled with the implementation and owner decisions: 26 November 2026.
 
 ## Read this first: handoff to another model or platform
 
@@ -155,7 +155,7 @@ Ordering is explicit editorial metadata, shared by the collection and homepage m
 The `certificateGroups` array defines this order:
 1. `awards`: SpiceLink I²U funding selection is first (priority 0), followed by competition wins and institutional selections. Its description states ₹15,000 INR in funding, as confirmed by the owner; the certificate confirms selection but does not print the amount. The landscape preview is first in the homepage marquee too. No issue date is inferred from PDF metadata. Innovare 2026 First Place precedes IDEATHON 2026 Second Place, then SIH institutional selection. Do not describe selection or participation as a national win.
 2. `nptel`: keep Elite credentials together; the 12-week Java algorithms course precedes the 8-week DBMS course.
-3. `ambassadorship`: Google Student Ambassador Program 2026 - Semester 1 immediately before Director's Honours Award - Semester 4.
+3. `ambassadorship`: Google Student Ambassador Program 2026 immediately before Director's Honours Award - Semester 4.
 4. `honours`: Director's honours before Principal's honours; keep semester credentials separate.
 5. `internships`: completion certificates, including Infosys PaperIQ and NeST Data Science. This category takes precedence over issuer grouping.
 6. `ibm`: Quantum Excellence, Basics of Quantum Information, AI Fundamentals, Getting Started with AI.
@@ -596,7 +596,7 @@ Portrait discovery: allow the three legacy photograph URLs for Googlebot-Image s
 
 Googlebot also excludes /assets/ except both portraits, the responsive variant and their legacy redirect URLs, to exclude decorative and certificate assets from general Search image candidates. Page routes, CSS, JS, fonts and root favicon files remain crawlable. Non-Google social crawlers retain access to hero-social.png.
 
-The Google Student Ambassador Program 2026 Semester 1 completion certificate appears immediately before Director's Honours Award - Semester 4 in the certificate collection; the homepage marquee follows this same ordering while excluding portrait certificates. Its landscape preview uses the existing certificate rendering; the ambassadorship editorial group precedes honours.
+The Google Student Ambassador Program 2026 certificate uses the replacement cropped PDF supplied on 26 November 2026; its display title omits Semester 1, while its stable slug and factual semester-completion description remain unchanged. It appears immediately before Director's Honours Award - Semester 4 in the certificate collection; the homepage marquee follows this same ordering while excluding portrait certificates. Its landscape preview uses the existing certificate rendering; the ambassadorship editorial group precedes honours.
 
 Gemini Student Ambassador experience runs April–November 2026 (display: Apr 2026 - Nov 2026; end: 2026-11). Keep the homepage and Experience subpage sourced from the same record.
 
