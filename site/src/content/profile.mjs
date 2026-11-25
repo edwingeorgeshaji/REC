@@ -253,7 +253,7 @@ export const profile = {
       "description": "Successfully completed Semester 1 as a Google Student Ambassador.",
       "image": "/assets/certificates/google-student-ambassador-semester-1/certificate.png",
       "width": 1800,
-      "height": 1299,
+      "height": 1312,
       "published": true
     },
     {
