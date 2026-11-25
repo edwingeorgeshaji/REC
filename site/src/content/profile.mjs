@@ -34,13 +34,13 @@ export const profile = {
   "certificates": [
     {
       "slug": "spicelink-i2u-funding",
-      "title": "SpiceLink - I²U Project Funding",
+      "title": "I²U Project Funding - SpiceLink",
       "issuer": "Amal Jyothi College of Engineering",
       "group": "awards",
       "priority": 0,
       "type": "Funding selection",
       "date": null,
-      "description": "Selected for ₹15,000 INR in funding following the Phase-II evaluation of the Innovation Ideas Unleashed (I²U) 2025 Project Contest for SpiceLink: Smart Cardamom Farming with AI Monitoring & Blockchain Traceability.",
+      "description": "Selected for ₹15,000 INR in funding following the Phase-II evaluation of the Innovation Ideas Unleashed (I²U) 2025 Project Contest for SpiceLink.",
       "image": "/assets/certificates/spicelink-i2u-funding/certificate.png",
       "width": 1800,
       "height": 1272,
